@@ -1,1 +1,51 @@
-
+      });
+      const email = document.getElementById('email');
+      const emailErr = document.getElementById('email-error');
+      const emailGrp = email.closest('.form-group');
+      if (!email.value.trim() || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email.value)) {
+        emailGrp.classList.add('has-error'); email.classList.add('error');
+        emailErr.style.display = 'block'; valid = false;
+      } else { emailGrp.classList.remove('has-error'); email.classList.remove('error'); emailErr.style.display = 'none'; }
+      const phone = document.getElementById('phone');
+      const phoneErr = document.getElementById('phone-error');
+      const phoneGrp = phone.closest('.form-group');
+      if (!phone.value.trim() || !/^[\d\s+\-]{8,}$/.test(phone.value)) {
+        phoneGrp.classList.add('has-error'); phone.classList.add('error');
+        phoneErr.style.display = 'block'; valid = false;
+      } else { phoneGrp.classList.remove('has-error'); phone.classList.remove('error'); phoneErr.style.display = 'none'; }
+    }
+    if (step === 2) {
+      ['university','faculty','year','student-id'].forEach(id => {
+        const el = document.getElementById(id);
+        const grp = el.closest('.form-group');
+        if (!el.value.trim()) { grp.classList.add('has-error'); el.classList.add('error'); valid = false; }
+        else { grp.classList.remove('has-error'); el.classList.remove('error'); }
+      });
+    }
+    if (step === 3) {
+      const checked = panel.querySelectorAll('input[name="interests"]:checked');
+      const err = document.getElementById('interest-error');
+      if (checked.length === 0) { err.style.display = 'block'; valid = false; }
+      else err.style.display = 'none';
+    }
+    return valid;
+  }
+  document.getElementById('btn-next').addEventListener('click', () => {
+    if (validateStep(currentStep)) showStep(currentStep + 1);
+  });
+  document.getElementById('btn-prev').addEventListener('click', () => {
+    showStep(currentStep - 1);
+  });
+  document.getElementById('reg-form').addEventListener('submit', function(e) {
+    e.preventDefault();
+    if (validateStep(currentStep)) {
+      document.getElementById('reg-form-wrapper').style.display = 'none';
+      document.getElementById('success-screen').classList.add('show');
+      document.querySelector('.stepper').style.display = 'none';
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+  });
+})();
+</script>
+</body>
+</html>
