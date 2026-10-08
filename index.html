@@ -4,11 +4,17 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Sahara UniLinks - منصة التبادل الطلابي</title>
+    <!-- ربط خط تجوال -->
     <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700;800&display=swap" rel="stylesheet">
+    <!-- ربط ملف التصميم -->
     <link rel="stylesheet" href="styles.css">
+    <!-- إعدادات تطبيق الويب التقدمي (PWA) -->
+    <link rel="manifest" href="manifest.json">
+    <meta name="theme-color" content="#0284c7">
 </head>
 <body>
 
+    <!-- شريط التنقل -->
     <nav class="navbar">
         <div class="logo">Sahara <span>UniLinks</span></div>
         <ul class="nav-links">
@@ -17,9 +23,11 @@
             <li><a href="events.html">الفعاليات</a></li>
             <li><a href="hosting.html">الاستضافة</a></li>
         </ul>
-        <a href="register.html" class="btn-nav">تسجيل الدخول</a>
+        <!-- تم تصحيح الرابط ليوجه لصفحة تسجيل الدخول -->
+        <a href="login.html" class="btn-nav">تسجيل الدخول</a>
     </nav>
 
+    <!-- القسم الرئيسي (Hero) -->
     <header class="hero">
         <div class="hero-content">
             <h1>اكتشف مؤهلات الصحراء المغربية</h1>
@@ -31,6 +39,7 @@
         </div>
     </header>
 
+    <!-- قسم الخدمات والمميزات -->
     <section class="features">
         <h2>ماذا نقدم للطلاب؟</h2>
         <div class="features-grid">
@@ -52,6 +61,7 @@
         </div>
     </section>
 
+    <!-- دعوة للانضمام -->
     <section class="cta-section">
       <div class="container">
         <h2>انضم إلى مجتمع Sahara UniLinks اليوم</h2>
@@ -60,6 +70,7 @@
       </div>
     </section>
 
+    <!-- التذييل -->
     <footer>
       <div class="container footer-grid">
         <div class="footer-brand">
@@ -89,6 +100,7 @@
       </div>
     </footer>
 
+    <!-- سكربت التطبيق -->
     <script src="app.js"></script>
 </body>
 </html>
