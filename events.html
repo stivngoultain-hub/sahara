@@ -1,50 +1,144 @@
-      <div style="display:flex;gap:1rem;flex-wrap:wrap">
-        <button class="btn btn-primary" style="flex:1" onclick="confirmRegister()">تأكيد التسجيل</button>
-        <button class="btn btn-outline" style="flex:1" onclick="closeEventModal()">إلغاء</button>
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>الفعاليات الأكاديمية - Sahara UniLinks</title>
+    <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+    <!-- شريط التنقل -->
+    <nav class="navbar">
+        <div class="logo">Sahara <span>UniLinks</span></div>
+        <ul class="nav-links">
+            <li><a href="index.html">الرئيسية</a></li>
+            <li><a href="trips.html">برامج الرحلات</a></li>
+            <li><a href="events.html" class="active">الفعاليات</a></li>
+            <li><a href="hosting.html">الاستضافة</a></li>
+        </ul>
+        <a href="register.html" class="btn-nav">تسجيل الدخول</a>
+    </nav>
+
+    <section style="padding: 50px 20px; min-height: 60vh;">
+        <h2 style="text-align: center; color: var(--dark-blue); font-size: 2.5rem; margin-bottom: 20px;">الفعاليات واللقاءات</h2>
+        
+        <!-- الفلاتر -->
+        <div style="display: flex; gap: 15px; justify-content: center; margin-bottom: 40px; flex-wrap: wrap;">
+            <select id="filter-type" onchange="filterEvents()" style="padding: 12px; border-radius: 8px; border: 1px solid #cbd5e1; font-family: inherit; font-size: 1rem; outline: none;">
+                <option value="">كل الأنواع</option>
+                <option value="seminar">ندوة أكاديمية</option>
+                <option value="workshop">ورشة عمل</option>
+            </select>
+            <select id="filter-mode" onchange="filterEvents()" style="padding: 12px; border-radius: 8px; border: 1px solid #cbd5e1; font-family: inherit; font-size: 1rem; outline: none;">
+                <option value="">كل الصيغ</option>
+                <option value="offline">حضوري</option>
+                <option value="online">عن بعد</option>
+            </select>
+        </div>
+
+        <!-- شبكة الفعاليات -->
+        <div id="events-grid" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 30px; max-width: 1200px; margin: 0 auto;">
+            <div class="feature-card event-card" data-type="seminar" data-mode="offline">
+                <div class="icon">🎙️</div>
+                <h3>ندوة: التدبير الترابي بالأقاليم الجنوبية</h3>
+                <p style="margin-bottom: 20px; color: var(--text-light);">مناقشة حول آليات الإدارة العمومية والجهوية المتقدمة.</p>
+                <button onclick="registerEvent(this)" class="btn-primary">تسجيل الحضور</button>
+            </div>
+            <div class="feature-card event-card" data-type="workshop" data-mode="online">
+                <div class="icon">💻</div>
+                <h3>ورشة: التحول الرقمي في الإدارة</h3>
+                <p style="margin-bottom: 20px; color: var(--text-light);">لقاء تفاعلي عن بعد حول رقمنة الخدمات العمومية.</p>
+                <button onclick="registerEvent(this)" class="btn-primary">تسجيل الحضور</button>
+            </div>
+        </div>
+        
+        <div id="no-events" style="display: none; text-align: center; font-size: 1.2rem; color: #64748b; margin-top: 50px;">
+            لا توجد فعاليات مطابقة لخيارات البحث.
+        </div>
+    </section>
+
+    <!-- نافذة تأكيد التسجيل -->
+    <div class="modal-overlay" id="event-modal">
+      <div class="modal">
+        <div class="modal-header">
+          <h3>تأكيد التسجيل</h3>
+          <button class="modal-close" onclick="closeEventModal()">✕</button>
+        </div>
+        <div class="modal-body">
+          <p style="margin-bottom: 20px; color: var(--text-main);">هل أنت متأكد من رغبتك في حجز مقعد في هذه الفعالية؟</p>
+          <div style="display: flex; gap: 15px; justify-content: center; flex-wrap: wrap;">
+            <button class="btn-primary" style="flex: 1;" onclick="confirmRegister()">تأكيد التسجيل</button>
+            <button class="btn-secondary" style="flex: 1; border-color: var(--primary-blue); color: var(--primary-blue);" onclick="closeEventModal()">إلغاء</button>
+          </div>
+        </div>
       </div>
     </div>
-  </div>
-</div>
-<footer>
-  <div class="container">
-    <div class="footer-bottom" style="border-top:none;padding-top:0">
-      <span data-i18n="footer_rights">© 2026 Sahara UniLinks. جميع الحقوق محفوظة</span>
-    </div>
-  </div>
-</footer>
-<script src="js/app.js"></script>
-<script>
-let activeEventBtn = null;
-function filterEvents() {
-  const type = document.getElementById('filter-type').value;
-  const mode = document.getElementById('filter-mode').value;
-  let visible = 0;
-  document.querySelectorAll('#events-grid .event-card').forEach(card => {
-    const match = (!type || card.dataset.type === type) && (!mode || card.dataset.mode === mode);
-    card.parentElement.style.display = match ? '' : 'none';
-    if (match) visible++;
-  });
-  document.getElementById('no-events').style.display = visible === 0 ? 'block' : 'none';
-}
-function registerEvent(btn) {
-  activeEventBtn = btn;
-  document.getElementById('event-modal').classList.add('open');
-}
-function closeEventModal() {
-  document.getElementById('event-modal').classList.remove('open');
-}
-function confirmRegister() {
-  if (activeEventBtn) {
-    activeEventBtn.textContent = 'مسجل ✓';
-    activeEventBtn.disabled = true;
-    activeEventBtn.style.background = 'var(--success)';
-  }
-  closeEventModal();
-  showToast('تم تسجيلك في الفعالية بنجاح! 🎉', 'success');
-}
-document.getElementById('event-modal').addEventListener('click', function(e) {
-  if (e.target === this) closeEventModal();
-});
-</script>
+
+    <!-- التذييل -->
+    <footer>
+      <div class="container footer-grid">
+        <div class="footer-brand">
+          <h3>Sahara UniLinks</h3>
+          <p>منصة رقمية تربط طلبة الجامعات المغربية بالأقاليم الجنوبية للتبادل الأكاديمي والثقافي.</p>
+        </div>
+        <div class="footer-col">
+          <h4>روابط سريعة</h4>
+          <ul>
+            <li><a href="index.html">الرئيسية</a></li>
+            <li><a href="trips.html">برامج الرحلات</a></li>
+            <li><a href="events.html">الفعاليات</a></li>
+            <li><a href="hosting.html">الاستضافة</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h4>تواصل معنا</h4>
+          <ul>
+            <li><a href="mailto:info@saharaunilinks.ma">info@saharaunilinks.ma</a></li>
+            <li><a href="tel:+212600000000">+212 600 000 000</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <p>© 2026 Sahara UniLinks. جميع الحقوق محفوظة</p>
+      </div>
+    </footer>
+
+    <script src="app.js"></script>
+    <script>
+    let activeEventBtn = null;
+    function filterEvents() {
+      const type = document.getElementById('filter-type').value;
+      const mode = document.getElementById('filter-mode').value;
+      let visible = 0;
+      document.querySelectorAll('#events-grid .event-card').forEach(card => {
+        const match = (!type || card.dataset.type === type) && (!mode || card.dataset.mode === mode);
+        card.style.display = match ? 'block' : 'none';
+        if (match) visible++;
+      });
+      document.getElementById('no-events').style.display = visible === 0 ? 'block' : 'none';
+    }
+    function registerEvent(btn) {
+      activeEventBtn = btn;
+      document.getElementById('event-modal').classList.add('open');
+    }
+    function closeEventModal() {
+      document.getElementById('event-modal').classList.remove('open');
+    }
+    function confirmRegister() {
+      if (activeEventBtn) {
+        activeEventBtn.textContent = 'مسجل ✓';
+        activeEventBtn.disabled = true;
+        activeEventBtn.style.background = '#10b981'; /* لون أخضر للنجاح */
+        activeEventBtn.style.boxShadow = 'none';
+      }
+      closeEventModal();
+      showToast('تم تسجيلك في الفعالية بنجاح! 🎉', 'success');
+    }
+    document.getElementById('event-modal').addEventListener('click', function(e) {
+      if (e.target === this) closeEventModal();
+    });
+    </script>
 </body>
 </html>
