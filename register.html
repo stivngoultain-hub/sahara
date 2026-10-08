@@ -1,51 +1,99 @@
-      });
-      const email = document.getElementById('email');
-      const emailErr = document.getElementById('email-error');
-      const emailGrp = email.closest('.form-group');
-      if (!email.value.trim() || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email.value)) {
-        emailGrp.classList.add('has-error'); email.classList.add('error');
-        emailErr.style.display = 'block'; valid = false;
-      } else { emailGrp.classList.remove('has-error'); email.classList.remove('error'); emailErr.style.display = 'none'; }
-      const phone = document.getElementById('phone');
-      const phoneErr = document.getElementById('phone-error');
-      const phoneGrp = phone.closest('.form-group');
-      if (!phone.value.trim() || !/^[\d\s+\-]{8,}$/.test(phone.value)) {
-        phoneGrp.classList.add('has-error'); phone.classList.add('error');
-        phoneErr.style.display = 'block'; valid = false;
-      } else { phoneGrp.classList.remove('has-error'); phone.classList.remove('error'); phoneErr.style.display = 'none'; }
-    }
-    if (step === 2) {
-      ['university','faculty','year','student-id'].forEach(id => {
-        const el = document.getElementById(id);
-        const grp = el.closest('.form-group');
-        if (!el.value.trim()) { grp.classList.add('has-error'); el.classList.add('error'); valid = false; }
-        else { grp.classList.remove('has-error'); el.classList.remove('error'); }
-      });
-    }
-    if (step === 3) {
-      const checked = panel.querySelectorAll('input[name="interests"]:checked');
-      const err = document.getElementById('interest-error');
-      if (checked.length === 0) { err.style.display = 'block'; valid = false; }
-      else err.style.display = 'none';
-    }
-    return valid;
-  }
-  document.getElementById('btn-next').addEventListener('click', () => {
-    if (validateStep(currentStep)) showStep(currentStep + 1);
-  });
-  document.getElementById('btn-prev').addEventListener('click', () => {
-    showStep(currentStep - 1);
-  });
-  document.getElementById('reg-form').addEventListener('submit', function(e) {
-    e.preventDefault();
-    if (validateStep(currentStep)) {
-      document.getElementById('reg-form-wrapper').style.display = 'none';
-      document.getElementById('success-screen').classList.add('show');
-      document.querySelector('.stepper').style.display = 'none';
-      window.scrollTo({ top: 0, behavior: 'smooth' });
-    }
-  });
-})();
-</script>
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>البوابة - Sahara UniLinks</title>
+    <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        .auth-container { max-width: 500px; margin: 60px auto; background: white; padding: 40px; border-radius: 15px; box-shadow: 0 10px 30px rgba(0,0,0,0.05); }
+        .auth-tabs { display: flex; margin-bottom: 30px; border-bottom: 2px solid #e2e8f0; }
+        .tab-btn { flex: 1; text-align: center; padding: 15px; font-weight: bold; cursor: pointer; color: var(--text-light); }
+        .tab-btn.active { color: var(--primary-blue); border-bottom: 3px solid var(--primary-blue); margin-bottom: -2px; }
+        .auth-form { display: none; animation: fadeInUp 0.4s ease; }
+        .auth-form.active { display: block; }
+    </style>
+</head>
+<body>
+
+    <nav class="navbar">
+        <div class="logo">Sahara <span>UniLinks</span></div>
+        <ul class="nav-links">
+            <li><a href="index.html">الرئيسية</a></li>
+        </ul>
+    </nav>
+
+    <div class="auth-container">
+        <div class="auth-tabs">
+            <div class="tab-btn active" onclick="switchAuth('login', this)">تسجيل الدخول</div>
+            <div class="tab-btn" onclick="switchAuth('register', this)">حساب جديد</div>
+        </div>
+
+        <!-- نموذج تسجيل الدخول -->
+        <form id="login-form" class="auth-form active">
+            <div class="form-group">
+                <label>البريد الإلكتروني (جرب admin@sahara.ma للإدارة)</label>
+                <input type="email" id="login-email" required>
+            </div>
+            <div class="form-group">
+                <label>كلمة المرور</label>
+                <input type="password" required>
+            </div>
+            <button type="submit" class="btn-primary" style="width: 100%;">دخول</button>
+        </form>
+
+        <!-- نموذج إنشاء حساب -->
+        <form id="register-form" class="auth-form">
+            <div class="form-group">
+                <label>الاسم الكامل</label>
+                <input type="text" required>
+            </div>
+            <div class="form-group">
+                <label>الجامعة</label>
+                <input type="text" placeholder="مثال: جامعة القاضي عياض" required>
+            </div>
+            <div class="form-group">
+                <label>البريد الإلكتروني</label>
+                <input type="email" required>
+            </div>
+            <div class="form-group">
+                <label>كلمة المرور</label>
+                <input type="password" required>
+            </div>
+            <button type="submit" class="btn-primary" style="width: 100%;">إنشاء الحساب</button>
+        </form>
+    </div>
+
+    <footer>
+      <div class="container footer-bottom" style="border:none;"><p>© 2026 Sahara UniLinks</p></div>
+    </footer>
+
+    <script src="app.js"></script>
+    <script>
+        function switchAuth(type, btn) {
+            document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+            document.querySelectorAll('.auth-form').forEach(f => f.classList.remove('active'));
+            btn.classList.add('active');
+            document.getElementById(type + '-form').classList.add('active');
+        }
+
+        // منطق تسجيل الدخول
+        document.getElementById('login-form').addEventListener('submit', (e) => {
+            e.preventDefault();
+            const email = document.getElementById('login-email').value;
+            localStorage.setItem('sahara_user', email === 'admin@sahara.ma' ? 'admin' : 'student');
+            showToast('تم تسجيل الدخول بنجاح');
+            setTimeout(() => window.location.href = 'index.html', 1000);
+        });
+
+        // منطق إنشاء حساب
+        document.getElementById('register-form').addEventListener('submit', (e) => {
+            e.preventDefault();
+            localStorage.setItem('sahara_user', 'student');
+            showToast('تم إنشاء الحساب بنجاح');
+            setTimeout(() => window.location.href = 'index.html', 1000);
+        });
+    </script>
 </body>
 </html>
