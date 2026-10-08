@@ -32,25 +32,28 @@
             </div>
         </header>
         <section style="padding: 60px 5%; text-align: center;">
-            <h2 style="color: var(--dark-blue); margin-bottom: 40px; font-size: 2.5rem;">ماذا نقدم للطلاب؟</h2>
+            <h2 style="color: var(--dark-blue); margin-bottom: 40px; font-size: 2.5rem;">ماذا نقدم للطلاب والأندية؟</h2>
             <div class="features-grid">
                 <div class="feature-card"><h3>🌍 رحلات استكشافية</h3><p>برامج سفر اقتصادية لاكتشاف المعالم والمشاريع.</p></div>
                 <div class="feature-card"><h3>🤝 استضافة متبادلة</h3><p>نظام آمن لاستضافة الطلاب لتقليل تكاليف السكن.</p></div>
-                <div class="feature-card"><h3>🎓 فعاليات أكاديمية</h3><p>منتديات تناقش التدبير الترابي والإدارة العمومية.</p></div>
+                <div class="feature-card"><h3>🎓 فعاليات أكاديمية</h3><p>منتديات تنظمها الأندية وتناقش التنمية الترابية.</p></div>
             </div>
         </section>
     </div>
 
-    <!-- واجهة الطالب (لوحة التحكم) -->
+    <!-- واجهة الطالب أو النادي (لوحة التحكم) -->
     <div id="student-view" style="display: none;" class="dashboard-container animate-fade-in-up">
-        <div style="background: white; padding: 30px; border-radius: 15px; display: flex; justify-content: space-between; align-items: center; margin-bottom: 40px;">
+        <div style="background: white; padding: 30px; border-radius: 15px; display: flex; justify-content: space-between; align-items: center; margin-bottom: 40px; flex-wrap: wrap; gap: 20px;">
             <div>
-                <h2 style="color: var(--dark-blue);">مرحباً بك في حسابك</h2>
-                <p style="color: var(--text-light);">طالب باحث - جامعة القاضي عياض</p>
+                <h2 style="color: var(--dark-blue);">مرحباً بك في فضاء التسيير التشاركي</h2>
+                <p style="color: var(--text-light);">ممثل نادي طلابي / طالب باحث - جامعة القاضي عياض</p>
             </div>
-            <button onclick="openProposeModal()" class="btn-primary">+ اقترح نشاطاً جديداً</button>
+            <div style="display: flex; gap: 10px; flex-wrap: wrap;">
+                <button onclick="openModal('seminar-modal')" class="btn-primary" style="background-color: var(--primary-blue);">+ اقترح ندوة أكاديمية</button>
+                <button onclick="openModal('trip-modal')" class="btn-primary">+ اقترح رحلة استكشافية</button>
+            </div>
         </div>
-        <h3 style="color: var(--primary-blue); margin-bottom: 20px;">نشاطاتي القادمة</h3>
+        <h3 style="color: var(--primary-blue); margin-bottom: 20px;">نشاطاتي ومقترحاتي المقدمة</h3>
         <div class="features-grid">
             <div class="feature-card" style="border-right: 4px solid #10b981;">
                 <h3>رحلة الداخلة الأكاديمية</h3>
@@ -61,45 +64,70 @@
 
     <!-- واجهة المدير (لوحة الإدارة) -->
     <div id="admin-view" style="display: none;" class="dashboard-container animate-fade-in-up">
-        <h2 style="color: var(--dark-blue); margin-bottom: 30px;">لوحة الإدارة - نظرة عامة</h2>
+        <h2 style="color: var(--dark-blue); margin-bottom: 30px;">لوحة الإدارة - دراسة المقترحات</h2>
         <div class="features-grid" style="margin-bottom: 40px;">
-            <div class="stat-card"><h3>إجمالي الطلاب</h3><div class="stat-number" data-target="1240">0</div></div>
-            <div class="stat-card"><h3>مقترحات معلقة</h3><div class="stat-number" data-target="14">0</div></div>
+            <div class="stat-card"><h3>إجمالي الطلاب والأندية</h3><div class="stat-number" data-target="1240">0</div></div>
+            <div class="stat-card"><h3>مقترحات معلقة (ندوات ورحلات)</h3><div class="stat-number" data-target="14">0</div></div>
         </div>
-        <h3 style="color: var(--primary-blue); margin-bottom: 20px;">الطلبات قيد المراجعة</h3>
+        <h3 style="color: var(--primary-blue); margin-bottom: 20px;">الطلبات الواردة من الأندية والطلاب</h3>
         <div style="overflow-x: auto;">
             <table>
-                <tr><th>مقدم الطلب</th><th>النشاط</th><th>الحالة</th><th>الإجراء</th></tr>
+                <tr><th>المُقترح (طالب / نادي)</th><th>نوع المقترح</th><th>العنوان</th><th>الحالة</th><th>الإجراء</th></tr>
                 <tr id="req-1">
-                    <td>عبد الله (طالب)</td><td>ندوة: التدبير الترابي</td>
+                    <td>نادي ريادة الأعمال</td>
+                    <td>ندوة أكاديمية</td>
+                    <td>التدبير الإداري والمالي العمومي</td>
                     <td><strong style="color: #d97706;">معلق</strong></td>
                     <td>
                         <button onclick="handleReq('req-1', 'approve')" style="background:#10b981; color:white; border:none; padding:5px 10px; border-radius:5px; cursor:pointer;">قبول</button>
                         <button onclick="handleReq('req-1', 'reject')" style="background:#ef4444; color:white; border:none; padding:5px 10px; border-radius:5px; cursor:pointer;">رفض</button>
                     </td>
                 </tr>
+                <tr id="req-2">
+                    <td>عبد الله (طالب باحث)</td>
+                    <td>رحلة استكشافية</td>
+                    <td>استكشاف الميناء الأطلسي بالداخلة</td>
+                    <td><strong style="color: #d97706;">معلق</strong></td>
+                    <td>
+                        <button onclick="handleReq('req-2', 'approve')" style="background:#10b981; color:white; border:none; padding:5px 10px; border-radius:5px; cursor:pointer;">قبول</button>
+                        <button onclick="handleReq('req-2', 'reject')" style="background:#ef4444; color:white; border:none; padding:5px 10px; border-radius:5px; cursor:pointer;">رفض</button>
+                    </td>
+                </tr>
             </table>
         </div>
     </div>
 
-    <!-- نافذة اقتراح نشاط (تظهر للطالب) -->
-    <div class="modal-overlay" id="propose-modal">
+    <!-- نافذة اقتراح ندوة -->
+    <div class="modal-overlay" id="seminar-modal">
         <div class="modal">
             <div class="modal-header">
-                <h3 style="color: var(--dark-blue);">اقترح نشاطاً أو رحلة</h3>
-                <button class="modal-close" onclick="closeProposeModal()">✕</button>
+                <h3 style="color: var(--dark-blue);">اقترح ندوة أو ورشة أكاديمية</h3>
+                <button class="modal-close" onclick="closeModal('seminar-modal')">✕</button>
             </div>
             <div class="modal-body">
-                <form id="propose-form">
-                    <div class="form-group">
-                        <label>عنوان النشاط</label>
-                        <input type="text" placeholder="مثال: ندوة الإدارة العمومية" required>
-                    </div>
-                    <div class="form-group">
-                        <label>وصف الفكرة</label>
-                        <textarea rows="4" placeholder="اشرح فكرتك..." required></textarea>
-                    </div>
-                    <button type="submit" class="btn-primary" style="width: 100%;">إرسال للإدارة</button>
+                <form id="seminar-form">
+                    <div class="form-group"><label>عنوان الندوة</label><input type="text" placeholder="مثال: آليات التحول الرقمي" required></div>
+                    <div class="form-group"><label>أهداف الندوة والمحاور</label><textarea rows="3" placeholder="اشرح محاور الندوة..." required></textarea></div>
+                    <div class="form-group"><label>صيغة الحضور</label><select><option>حضوري</option><option>عن بعد (Online)</option></select></div>
+                    <button type="submit" class="btn-primary" style="width: 100%; cursor: pointer;">إرسال للإدارة</button>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- نافذة اقتراح رحلة -->
+    <div class="modal-overlay" id="trip-modal">
+        <div class="modal">
+            <div class="modal-header">
+                <h3 style="color: var(--dark-blue);">اقترح رحلة استكشافية جماعية</h3>
+                <button class="modal-close" onclick="closeModal('trip-modal')">✕</button>
+            </div>
+            <div class="modal-body">
+                <form id="trip-form">
+                    <div class="form-group"><label>وجهة الرحلة (المدينة)</label><input type="text" placeholder="مثال: الداخلة أو العيون" required></div>
+                    <div class="form-group"><label>الهدف الأكاديمي / الاستكشافي</label><textarea rows="3" placeholder="لماذا هذه الرحلة؟..." required></textarea></div>
+                    <div class="form-group"><label>المدة المقترحة</label><input type="text" placeholder="مثال: 3 أيام" required></div>
+                    <button type="submit" class="btn-primary" style="width: 100%; cursor: pointer;">إرسال للإدارة</button>
                 </form>
             </div>
         </div>
@@ -113,19 +141,24 @@
 
     <script src="app.js"></script>
     <script>
-        // دوال الإدارة والاقتراح
-        function openProposeModal() { document.getElementById('propose-modal').classList.add('open'); }
-        function closeProposeModal() { document.getElementById('propose-modal').classList.remove('open'); }
-        document.getElementById('propose-form').addEventListener('submit', (e) => {
+        function openModal(id) { document.getElementById(id).classList.add('open'); }
+        function closeModal(id) { document.getElementById(id).classList.remove('open'); }
+        
+        document.getElementById('seminar-form').addEventListener('submit', (e) => {
             e.preventDefault();
-            closeProposeModal();
-            showToast('تم إرسال مقترحك للإدارة بنجاح!');
+            closeModal('seminar-modal');
+            showToast('تم إرسال مقترح الندوة بنجاح!');
+        });
+        document.getElementById('trip-form').addEventListener('submit', (e) => {
+            e.preventDefault();
+            closeModal('trip-modal');
+            showToast('تم إرسال مقترح الرحلة بنجاح!');
         });
         function handleReq(id, action) {
             const row = document.getElementById(id);
             row.style.opacity = '0.5';
             row.style.pointerEvents = 'none';
-            showToast(action === 'approve' ? 'تم القبول بنجاح' : 'تم الرفض', action === 'approve' ? 'success' : 'error');
+            showToast(action === 'approve' ? 'تم قبول المقترح وإدراجه' : 'تم الرفض', action === 'approve' ? 'success' : 'error');
         }
     </script>
 </body>
