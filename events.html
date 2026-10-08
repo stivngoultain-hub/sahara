@@ -1,1 +1,50 @@
-
+      <div style="display:flex;gap:1rem;flex-wrap:wrap">
+        <button class="btn btn-primary" style="flex:1" onclick="confirmRegister()">تأكيد التسجيل</button>
+        <button class="btn btn-outline" style="flex:1" onclick="closeEventModal()">إلغاء</button>
+      </div>
+    </div>
+  </div>
+</div>
+<footer>
+  <div class="container">
+    <div class="footer-bottom" style="border-top:none;padding-top:0">
+      <span data-i18n="footer_rights">© 2026 Sahara UniLinks. جميع الحقوق محفوظة</span>
+    </div>
+  </div>
+</footer>
+<script src="js/app.js"></script>
+<script>
+let activeEventBtn = null;
+function filterEvents() {
+  const type = document.getElementById('filter-type').value;
+  const mode = document.getElementById('filter-mode').value;
+  let visible = 0;
+  document.querySelectorAll('#events-grid .event-card').forEach(card => {
+    const match = (!type || card.dataset.type === type) && (!mode || card.dataset.mode === mode);
+    card.parentElement.style.display = match ? '' : 'none';
+    if (match) visible++;
+  });
+  document.getElementById('no-events').style.display = visible === 0 ? 'block' : 'none';
+}
+function registerEvent(btn) {
+  activeEventBtn = btn;
+  document.getElementById('event-modal').classList.add('open');
+}
+function closeEventModal() {
+  document.getElementById('event-modal').classList.remove('open');
+}
+function confirmRegister() {
+  if (activeEventBtn) {
+    activeEventBtn.textContent = 'مسجل ✓';
+    activeEventBtn.disabled = true;
+    activeEventBtn.style.background = 'var(--success)';
+  }
+  closeEventModal();
+  showToast('تم تسجيلك في الفعالية بنجاح! 🎉', 'success');
+}
+document.getElementById('event-modal').addEventListener('click', function(e) {
+  if (e.target === this) closeEventModal();
+});
+</script>
+</body>
+</html>
