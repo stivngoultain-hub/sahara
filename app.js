@@ -1,4 +1,4 @@
-// ── Toast Notification ───────────────────────────────────────
+// ── الإشعارات (Toast) ───────────────────────────────────────
 function showToast(message, type = 'success') {
   const toast = document.createElement('div');
   toast.className = `toast toast-${type} animate-fade-in-up`;
@@ -11,7 +11,7 @@ function showToast(message, type = 'success') {
   }, 3500);
 }
 
-// ── Animated Counter ─────────────────────────────────────────
+// ── العدادات المتحركة ────────────────────────────────────────
 function animateCounters() {
   const counters = document.querySelectorAll('.stat-number');
   if(!counters.length) return;
@@ -34,17 +34,52 @@ function animateCounters() {
   counters.forEach(c => observer.observe(c));
 }
 
-// ── Service Worker Registration ──────────────────────────────
-function registerSW() {
-  if ('serviceWorker' in navigator) {
-    navigator.serviceWorker.register('service-worker.js')
-      .then(() => console.log('SW registered'))
-      .catch(err => console.warn('SW error:', err));
-  }
+// ── نظام تسجيل الدخول والصلاحيات (Dynamic Auth) ───────────────
+function checkAuth() {
+    const user = localStorage.getItem('sahara_user');
+    
+    // تحديث أزرار التنقل في جميع الصفحات
+    document.querySelectorAll('.btn-nav').forEach(btn => {
+        if(user) {
+            btn.textContent = 'تسجيل الخروج';
+            btn.style.backgroundColor = '#ef4444';
+            btn.href = '#';
+            btn.onclick = (e) => { 
+                e.preventDefault(); 
+                localStorage.removeItem('sahara_user'); 
+                window.location.href = 'index.html'; 
+            };
+        } else {
+            btn.textContent = 'الدخول / التسجيل';
+            btn.href = 'register.html';
+            btn.style.backgroundColor = 'var(--primary-blue)';
+        }
+    });
+
+    // إدارة واجهات الصفحة الرئيسية (index.html)
+    const guestView = document.getElementById('guest-view');
+    const studentView = document.getElementById('student-view');
+    const adminView = document.getElementById('admin-view');
+
+    if (guestView && studentView && adminView) {
+        if (user === 'admin') {
+            guestView.style.display = 'none';
+            studentView.style.display = 'none';
+            adminView.style.display = 'block';
+        } else if (user === 'student') {
+            guestView.style.display = 'none';
+            adminView.style.display = 'none';
+            studentView.style.display = 'block';
+        } else {
+            studentView.style.display = 'none';
+            adminView.style.display = 'none';
+            guestView.style.display = 'block';
+        }
+    }
 }
 
-// ── Init ─────────────────────────────────────────────────────
+// ── التهيئة عند تحميل الصفحة ──────────────────────────────────
 document.addEventListener('DOMContentLoaded', () => {
   animateCounters();
-  registerSW();
+  checkAuth();
 });
