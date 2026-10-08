@@ -4,103 +4,129 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Sahara UniLinks - منصة التبادل الطلابي</title>
-    <!-- ربط خط تجوال -->
     <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700;800&display=swap" rel="stylesheet">
-    <!-- ربط ملف التصميم -->
     <link rel="stylesheet" href="styles.css">
-    <!-- إعدادات تطبيق الويب التقدمي (PWA) -->
-    <link rel="manifest" href="manifest.json">
-    <meta name="theme-color" content="#0284c7">
 </head>
 <body>
 
-    <!-- شريط التنقل -->
     <nav class="navbar">
         <div class="logo">Sahara <span>UniLinks</span></div>
         <ul class="nav-links">
-            <li><a href="index.html" class="active">الرئيسية</a></li>
-            <li><a href="trips.html">برامج الرحلات</a></li>
+            <li><a href="index.html" class="active">الرئيسية / حسابي</a></li>
+            <li><a href="trips.html">الرحلات</a></li>
             <li><a href="events.html">الفعاليات</a></li>
             <li><a href="hosting.html">الاستضافة</a></li>
         </ul>
-        <!-- تم تصحيح الرابط ليوجه لصفحة تسجيل الدخول -->
-        <a href="login.html" class="btn-nav">تسجيل الدخول</a>
+        <a href="register.html" class="btn-nav">الدخول / التسجيل</a>
     </nav>
 
-    <!-- القسم الرئيسي (Hero) -->
-    <header class="hero">
-        <div class="hero-content">
-            <h1>اكتشف مؤهلات الصحراء المغربية</h1>
-            <p>منصة رقمية مبتكرة تربط طلبة الجامعات المغربية بالأقاليم الجنوبية لتعزيز التبادل الأكاديمي، السياحة العلمية، والتنمية الترابية.</p>
-            <div class="hero-buttons">
-                <a href="register.html" class="btn-primary">انضم إلى المجتمع</a>
-                <a href="trips.html" class="btn-secondary">تصفح الرحلات</a>
+    <!-- واجهة الزائر العادي -->
+    <div id="guest-view">
+        <header class="hero">
+            <div class="hero-content">
+                <h1>اكتشف مؤهلات الصحراء المغربية</h1>
+                <p>منصة رقمية مبتكرة تربط طلبة الجامعات المغربية بالأقاليم الجنوبية.</p>
+                <div class="hero-buttons">
+                    <a href="register.html" class="btn-primary">انضم إلى المجتمع</a>
+                </div>
             </div>
-        </div>
-    </header>
+        </header>
+        <section style="padding: 60px 5%; text-align: center;">
+            <h2 style="color: var(--dark-blue); margin-bottom: 40px; font-size: 2.5rem;">ماذا نقدم للطلاب؟</h2>
+            <div class="features-grid">
+                <div class="feature-card"><h3>🌍 رحلات استكشافية</h3><p>برامج سفر اقتصادية لاكتشاف المعالم والمشاريع.</p></div>
+                <div class="feature-card"><h3>🤝 استضافة متبادلة</h3><p>نظام آمن لاستضافة الطلاب لتقليل تكاليف السكن.</p></div>
+                <div class="feature-card"><h3>🎓 فعاليات أكاديمية</h3><p>منتديات تناقش التدبير الترابي والإدارة العمومية.</p></div>
+            </div>
+        </section>
+    </div>
 
-    <!-- قسم الخدمات والمميزات -->
-    <section class="features">
-        <h2>ماذا نقدم للطلاب؟</h2>
+    <!-- واجهة الطالب (لوحة التحكم) -->
+    <div id="student-view" style="display: none;" class="dashboard-container animate-fade-in-up">
+        <div style="background: white; padding: 30px; border-radius: 15px; display: flex; justify-content: space-between; align-items: center; margin-bottom: 40px;">
+            <div>
+                <h2 style="color: var(--dark-blue);">مرحباً بك في حسابك</h2>
+                <p style="color: var(--text-light);">طالب باحث - جامعة القاضي عياض</p>
+            </div>
+            <button onclick="openProposeModal()" class="btn-primary">+ اقترح نشاطاً جديداً</button>
+        </div>
+        <h3 style="color: var(--primary-blue); margin-bottom: 20px;">نشاطاتي القادمة</h3>
         <div class="features-grid">
-            <div class="feature-card">
-                <div class="icon">🌍</div>
-                <h3>رحلات استكشافية</h3>
-                <p>برامج سفر اقتصادية مخصصة للطلاب لاكتشاف المعالم الثقافية والمشاريع التنموية الكبرى في الأقاليم الجنوبية.</p>
-            </div>
-            <div class="feature-card">
-                <div class="icon">🤝</div>
-                <h3>استضافة متبادلة</h3>
-                <p>نظام آمن يتيح للطلاب استضافة زملائهم من مدن أخرى لتقليل تكاليف السكن وتعزيز الروابط الثقافية.</p>
-            </div>
-            <div class="feature-card">
-                <div class="icon">🎓</div>
-                <h3>فعاليات أكاديمية</h3>
-                <p>المشاركة في منتديات ولقاءات تناقش التدبير الترابي، الإدارة العمومية، وريادة الأعمال في الصحراء المغربية.</p>
+            <div class="feature-card" style="border-right: 4px solid #10b981;">
+                <h3>رحلة الداخلة الأكاديمية</h3>
+                <p>الحالة: <strong style="color: #10b981;">مؤكد</strong></p>
             </div>
         </div>
-    </section>
+    </div>
 
-    <!-- دعوة للانضمام -->
-    <section class="cta-section">
-      <div class="container">
-        <h2>انضم إلى مجتمع Sahara UniLinks اليوم</h2>
-        <p style="margin-bottom: 25px; font-size: 1.2rem;">سجل الآن وانطلق في رحلة اكتشاف الجنوب المغربي مع رفاقك</p>
-        <a href="register.html" class="btn-primary">سجل الآن مجاناً</a>
-      </div>
-    </section>
+    <!-- واجهة المدير (لوحة الإدارة) -->
+    <div id="admin-view" style="display: none;" class="dashboard-container animate-fade-in-up">
+        <h2 style="color: var(--dark-blue); margin-bottom: 30px;">لوحة الإدارة - نظرة عامة</h2>
+        <div class="features-grid" style="margin-bottom: 40px;">
+            <div class="stat-card"><h3>إجمالي الطلاب</h3><div class="stat-number" data-target="1240">0</div></div>
+            <div class="stat-card"><h3>مقترحات معلقة</h3><div class="stat-number" data-target="14">0</div></div>
+        </div>
+        <h3 style="color: var(--primary-blue); margin-bottom: 20px;">الطلبات قيد المراجعة</h3>
+        <div style="overflow-x: auto;">
+            <table>
+                <tr><th>مقدم الطلب</th><th>النشاط</th><th>الحالة</th><th>الإجراء</th></tr>
+                <tr id="req-1">
+                    <td>عبد الله (طالب)</td><td>ندوة: التدبير الترابي</td>
+                    <td><strong style="color: #d97706;">معلق</strong></td>
+                    <td>
+                        <button onclick="handleReq('req-1', 'approve')" style="background:#10b981; color:white; border:none; padding:5px 10px; border-radius:5px; cursor:pointer;">قبول</button>
+                        <button onclick="handleReq('req-1', 'reject')" style="background:#ef4444; color:white; border:none; padding:5px 10px; border-radius:5px; cursor:pointer;">رفض</button>
+                    </td>
+                </tr>
+            </table>
+        </div>
+    </div>
 
-    <!-- التذييل -->
+    <!-- نافذة اقتراح نشاط (تظهر للطالب) -->
+    <div class="modal-overlay" id="propose-modal">
+        <div class="modal">
+            <div class="modal-header">
+                <h3 style="color: var(--dark-blue);">اقترح نشاطاً أو رحلة</h3>
+                <button class="modal-close" onclick="closeProposeModal()">✕</button>
+            </div>
+            <div class="modal-body">
+                <form id="propose-form">
+                    <div class="form-group">
+                        <label>عنوان النشاط</label>
+                        <input type="text" placeholder="مثال: ندوة الإدارة العمومية" required>
+                    </div>
+                    <div class="form-group">
+                        <label>وصف الفكرة</label>
+                        <textarea rows="4" placeholder="اشرح فكرتك..." required></textarea>
+                    </div>
+                    <button type="submit" class="btn-primary" style="width: 100%;">إرسال للإدارة</button>
+                </form>
+            </div>
+        </div>
+    </div>
+
     <footer>
-      <div class="container footer-grid">
-        <div class="footer-brand">
-          <h3>Sahara UniLinks</h3>
-          <p>منصة رقمية تربط طلبة الجامعات المغربية بالأقاليم الجنوبية للتبادل الأكاديمي والثقافي.</p>
-        </div>
-        <div class="footer-col">
-          <h4>روابط سريعة</h4>
-          <ul>
-            <li><a href="index.html">الرئيسية</a></li>
-            <li><a href="trips.html">برامج الرحلات</a></li>
-            <li><a href="events.html">الفعاليات</a></li>
-            <li><a href="hosting.html">الاستضافة</a></li>
-          </ul>
-        </div>
-        <div class="footer-col">
-          <h4>تواصل معنا</h4>
-          <ul>
-            <li><a href="mailto:info@saharaunilinks.ma">info@saharaunilinks.ma</a></li>
-            <li><a href="tel:+212600000000">+212 600 000 000</a></li>
-          </ul>
-        </div>
-      </div>
-      <div class="footer-bottom">
-        <p>© 2026 Sahara UniLinks. جميع الحقوق محفوظة</p>
-        <p>مشروع مقدم لـ Moroccan Sahara Innovation Challenge 2026</p>
+      <div class="container footer-bottom" style="border:none;">
+        <p>© 2026 Sahara UniLinks. مشروع مقدم لـ Moroccan Sahara Innovation Challenge</p>
       </div>
     </footer>
 
-    <!-- سكربت التطبيق -->
     <script src="app.js"></script>
+    <script>
+        // دوال الإدارة والاقتراح
+        function openProposeModal() { document.getElementById('propose-modal').classList.add('open'); }
+        function closeProposeModal() { document.getElementById('propose-modal').classList.remove('open'); }
+        document.getElementById('propose-form').addEventListener('submit', (e) => {
+            e.preventDefault();
+            closeProposeModal();
+            showToast('تم إرسال مقترحك للإدارة بنجاح!');
+        });
+        function handleReq(id, action) {
+            const row = document.getElementById(id);
+            row.style.opacity = '0.5';
+            row.style.pointerEvents = 'none';
+            showToast(action === 'approve' ? 'تم القبول بنجاح' : 'تم الرفض', action === 'approve' ? 'success' : 'error');
+        }
+    </script>
 </body>
 </html>
