@@ -12,113 +12,53 @@
     <nav class="navbar">
         <div class="logo">Sahara <span>UniLinks</span></div>
         <ul class="nav-links">
-            <li><a href="index.html">الرئيسية</a></li>
-            <li><a href="trips.html" class="active">برامج الرحلات</a></li>
+            <li><a href="index.html">الرئيسية / حسابي</a></li>
+            <li><a href="trips.html" class="active">الرحلات</a></li>
             <li><a href="events.html">الفعاليات</a></li>
             <li><a href="hosting.html">الاستضافة</a></li>
         </ul>
-        <a href="register.html" class="btn-nav">تسجيل الدخول</a>
+        <a href="register.html" class="btn-nav">الدخول / التسجيل</a>
     </nav>
 
-    <section style="padding: 50px 20px; min-height: 60vh;">
-        <h2 style="text-align: center; color: var(--dark-blue); font-size: 2.5rem; margin-bottom: 20px;">استكشف رحلات الصحراء</h2>
-        
-        <div style="display: flex; gap: 15px; justify-content: center; margin-bottom: 40px; flex-wrap: wrap;">
-            <select id="filter-city" onchange="filterTrips()" style="padding: 12px; border-radius: 8px; border: 1px solid #cbd5e1; font-family: inherit; font-size: 1rem; outline: none;">
-                <option value="">كل المدن</option>
-                <option value="dakhla">الداخلة</option>
-                <option value="laayoune">العيون</option>
-            </select>
-            <select id="filter-duration" onchange="filterTrips()" style="padding: 12px; border-radius: 8px; border: 1px solid #cbd5e1; font-family: inherit; font-size: 1rem; outline: none;">
-                <option value="">كل المدد</option>
-                <option value="3">3 أيام</option>
-                <option value="5">5 أيام</option>
-            </select>
-        </div>
-
-        <div id="trips-grid" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 30px; max-width: 1200px; margin: 0 auto;">
-            <div class="feature-card trip-card" data-city="dakhla" data-duration="3">
-                <div class="icon">🌊</div>
-                <h3>رحلة الداخلة الأكاديمية</h3>
-                <p style="margin-bottom: 20px;">استكشاف الميناء الأطلسي ومشاريع الاقتصاد الأزرق. مدة الرحلة: 3 أيام.</p>
-                <button onclick="bookTrip()" class="btn-primary">احجز الآن</button>
+    <section class="dashboard-container">
+        <h2 style="text-align: center; color: var(--dark-blue); font-size: 2.5rem; margin-bottom: 40px;">استكشف رحلات الصحراء</h2>
+        <div class="features-grid">
+            <div class="feature-card">
+                <h3 style="color: var(--primary-blue);">رحلة الداخلة الأكاديمية</h3>
+                <p style="margin: 15px 0;">استكشاف الميناء الأطلسي. المدة: 3 أيام.</p>
+                <button onclick="bookTrip()" class="btn-primary">احجز مقعدك</button>
             </div>
-            <div class="feature-card trip-card" data-city="laayoune" data-duration="5">
-                <div class="icon">🏜️</div>
-                <h3>استكشاف العيون</h3>
-                <p style="margin-bottom: 20px;">زيارة المشاريع الكبرى والتعرف على التراث المحلي. مدة الرحلة: 5 أيام.</p>
-                <button onclick="bookTrip()" class="btn-primary">احجز الآن</button>
+            <div class="feature-card">
+                <h3 style="color: var(--primary-blue);">استكشاف العيون</h3>
+                <p style="margin: 15px 0;">زيارة المشاريع التنموية الكبرى. المدة: 5 أيام.</p>
+                <button onclick="bookTrip()" class="btn-primary">احجز مقعدك</button>
             </div>
-        </div>
-        
-        <div id="no-results" style="display: none; text-align: center; font-size: 1.2rem; color: #64748b; margin-top: 50px;">
-            لا توجد رحلات مطابقة لخيارات البحث.
         </div>
     </section>
 
-    <!-- نافذة الحجز المنبثقة (Modal) -->
+    <!-- نافذة الحجز -->
     <div class="modal-overlay" id="book-modal">
-      <div class="modal">
-        <div class="modal-header">
-          <h3>تأكيد الحجز</h3>
-          <button class="modal-close" onclick="closeModal()">✕</button>
+        <div class="modal">
+            <div class="modal-header">
+                <h3>تأكيد الحجز</h3>
+                <button class="modal-close" onclick="closeModal()">✕</button>
+            </div>
+            <div class="modal-body">
+                <p style="margin-bottom: 20px;">سيتم إضافة هذه الرحلة إلى لوحة تحكمك.</p>
+                <button onclick="confirmBooking()" class="btn-primary" style="width: 100%;">تأكيد</button>
+            </div>
         </div>
-        <div class="modal-body">
-          <p style="margin-bottom: 20px; color: var(--text-main);">للحجز في هذه الرحلة يرجى تسجيل الدخول أولاً أو إنشاء حساب جديد.</p>
-          <div style="display: flex; gap: 15px; justify-content: center; flex-wrap: wrap;">
-            <a href="register.html" class="btn-primary" style="flex: 1;">تسجيل جديد</a>
-            <button onclick="closeModal()" class="btn-secondary" style="flex: 1; border-color: var(--primary-blue); color: var(--primary-blue);">إلغاء</button>
-          </div>
-        </div>
-      </div>
     </div>
 
-    <footer>
-      <div class="container footer-grid">
-        <div class="footer-brand">
-          <h3>Sahara UniLinks</h3>
-          <p>منصة رقمية تربط طلبة الجامعات المغربية بالأقاليم الجنوبية للتبادل الأكاديمي والثقافي.</p>
-        </div>
-        <div class="footer-col">
-          <h4>روابط سريعة</h4>
-          <ul>
-            <li><a href="index.html">الرئيسية</a></li>
-            <li><a href="trips.html">برامج الرحلات</a></li>
-            <li><a href="events.html">الفعاليات</a></li>
-            <li><a href="hosting.html">الاستضافة</a></li>
-          </ul>
-        </div>
-        <div class="footer-col">
-          <h4>تواصل معنا</h4>
-          <ul>
-            <li><a href="mailto:info@saharaunilinks.ma">info@saharaunilinks.ma</a></li>
-            <li><a href="tel:+212600000000">+212 600 000 000</a></li>
-          </ul>
-        </div>
-      </div>
-      <div class="footer-bottom">
-        <p>© 2026 Sahara UniLinks. جميع الحقوق محفوظة</p>
-      </div>
-    </footer>
-
+    <footer><div class="container footer-bottom" style="border:none;"><p>© 2026 Sahara UniLinks</p></div></footer>
     <script src="app.js"></script>
     <script>
-    function filterTrips() {
-      const city     = document.getElementById('filter-city').value;
-      const duration = document.getElementById('filter-duration').value;
-      let visible = 0;
-      document.querySelectorAll('.trip-card').forEach(card => {
-        const match = (!city || card.dataset.city === city) && (!duration || card.dataset.duration === duration);
-        card.style.display = match ? 'block' : 'none';
-        if (match) visible++;
-      });
-      document.getElementById('no-results').style.display = visible === 0 ? 'block' : 'none';
-    }
-    function bookTrip() { document.getElementById('book-modal').classList.add('open'); }
-    function closeModal() { document.getElementById('book-modal').classList.remove('open'); }
-    document.getElementById('book-modal').addEventListener('click', function(e) { 
-        if (e.target === this) closeModal(); 
-    });
+        function bookTrip() { document.getElementById('book-modal').classList.add('open'); }
+        function closeModal() { document.getElementById('book-modal').classList.remove('open'); }
+        function confirmBooking() {
+            closeModal();
+            showToast('تم تأكيد الحجز! راجع حسابك.');
+        }
     </script>
 </body>
 </html>
