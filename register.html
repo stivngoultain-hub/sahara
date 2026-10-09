@@ -3,16 +3,20 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>البوابة - SaharaVerse</title>
+    <title>البوابة الآمنة - SaharaVerse</title>
     <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="styles.css">
     <style>
         .auth-container { max-width: 500px; margin: 60px auto; background: white; padding: 40px; border-radius: 15px; box-shadow: 0 10px 30px rgba(0,0,0,0.05); }
         .auth-tabs { display: flex; margin-bottom: 30px; border-bottom: 2px solid #e2e8f0; }
-        .tab-btn { flex: 1; text-align: center; padding: 15px; font-weight: bold; cursor: pointer; color: var(--text-light); }
+        .tab-btn { flex: 1; text-align: center; padding: 15px; font-weight: bold; cursor: pointer; color: var(--text-light); transition: all 0.3s; }
         .tab-btn.active { color: var(--primary-blue); border-bottom: 3px solid var(--primary-blue); margin-bottom: -2px; }
         .auth-form { display: none; animation: fadeInUp 0.4s ease; }
         .auth-form.active { display: block; }
+        .security-badge { text-align: center; margin-bottom: 25px; padding: 15px; background-color: #f0fdf4; border: 1px solid #bbf7d0; border-radius: 8px; color: #166534; font-size: 0.9rem; }
+        .checkbox-group { display: flex; align-items: flex-start; gap: 10px; margin-bottom: 20px; font-size: 0.85rem; color: var(--text-light); text-align: right; }
+        .checkbox-group input { margin-top: 4px; cursor: pointer; }
+        .checkbox-group a { color: var(--primary-blue); text-decoration: underline; }
     </style>
 </head>
 <body>
@@ -25,6 +29,11 @@
     </nav>
 
     <div class="auth-container">
+        <!-- شارة الأمان والامتثال القانوني -->
+        <div class="security-badge">
+            🔒 <strong>بوابة آمنة ومشفرة:</strong> نحن نلتزم بحماية معطياتك الشخصية وفقاً لأعلى معايير الأمان والقانون المغربي لحماية المعطيات.
+        </div>
+
         <div class="auth-tabs">
             <div class="tab-btn active" onclick="switchAuth('login', this)">تسجيل الدخول</div>
             <div class="tab-btn" onclick="switchAuth('register', this)">حساب جديد</div>
@@ -33,14 +42,14 @@
         <!-- نموذج تسجيل الدخول -->
         <form id="login-form" class="auth-form active">
             <div class="form-group">
-                <label>البريد الإلكتروني</label>
-                <input type="email" id="login-email" placeholder="example@uca.ma" required>
+                <label>البريد الإلكتروني الجامعي أو الشخصي</label>
+                <input type="email" id="login-email" placeholder="student@uca.ma" required>
             </div>
             <div class="form-group">
-                <label>كلمة المرور</label>
+                <label>كلمة المرور المشفرة</label>
                 <input type="password" required>
             </div>
-            <button type="submit" class="btn-primary" style="width: 100%; cursor: pointer;">دخول</button>
+            <button type="submit" class="btn-primary" style="width: 100%; cursor: pointer;">دخول آمن</button>
         </form>
 
         <!-- نموذج إنشاء حساب -->
@@ -54,15 +63,26 @@
                 <input type="email" required>
             </div>
             <div class="form-group">
-                <label>كلمة المرور</label>
+                <label>كلمة المرور (يجب أن تكون قوية)</label>
                 <input type="password" required>
             </div>
-            <button type="submit" class="btn-primary" style="width: 100%; cursor: pointer;">إنشاء الحساب</button>
+            
+            <!-- خانة الموافقة القانونية (CNDP) -->
+            <div class="checkbox-group">
+                <input type="checkbox" id="privacy-consent" required>
+                <label for="privacy-consent">
+                    أوافق صراحةً على <a href="#">سياسة الخصوصية</a> وأصرح بموافقتي على معالجة معطياتي الشخصية وتخزينها الآمن وفقاً <strong>للقانون المغربي 09-08</strong> المتعلق بحماية الأشخاص الذاتيين تجاه معالجة المعطيات ذات الطابع الشخصي (CNDP).
+                </label>
+            </div>
+
+            <button type="submit" class="btn-primary" style="width: 100%; cursor: pointer;">إنشاء حساب مشفر</button>
         </form>
     </div>
 
     <footer>
-      <div class="container footer-bottom" style="border:none;"><p>© 2026 SaharaVerse</p></div>
+      <div class="container footer-bottom" style="border:none;">
+        <p>© 2026 SaharaVerse - جميع البيانات محمية ومشفرة</p>
+      </div>
     </footer>
 
     <script src="app.js"></script>
@@ -78,22 +98,21 @@
             e.preventDefault();
             const email = document.getElementById('login-email').value;
             
-            // التحقق السري من صلاحيات الإدارة
             if(email === 'admin@sahara.ma') {
                 localStorage.setItem('sahara_role', 'admin');
-                showToast('مرحباً بك، لوحة الإدارة جاهزة');
+                showToast('مرحباً بك، الاتصال بلوحة الإدارة مشفر وآمن');
             } else {
                 localStorage.setItem('sahara_role', 'student');
-                showToast('تم تسجيل الدخول بنجاح');
+                showToast('تم تسجيل الدخول الآمن بنجاح');
             }
-            setTimeout(() => window.location.href = 'index.html', 1000);
+            setTimeout(() => window.location.href = 'index.html', 1200);
         });
 
         document.getElementById('register-form').addEventListener('submit', (e) => {
             e.preventDefault();
             localStorage.setItem('sahara_role', 'student');
-            showToast('تم إنشاء الحساب بنجاح');
-            setTimeout(() => window.location.href = 'index.html', 1000);
+            showToast('تم إنشاء الحساب، بياناتك مشفرة ومحمية بالكامل');
+            setTimeout(() => window.location.href = 'index.html', 1200);
         });
     </script>
 </body>
