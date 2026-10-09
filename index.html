@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Sahara UniLinks - منصة التبادل الطلابي</title>
+    <title>SaharaVerse - منصة الابتكار والتبادل الطلابي</title>
     <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="styles.css">
     <style>
@@ -16,16 +16,16 @@
         .btn-action-accept { background-color: #10b981; color: white; border: none; padding: 6px 14px; border-radius: 6px; cursor: pointer; font-weight: bold; font-family: inherit; }
         .btn-action-reject { background-color: #ef4444; color: white; border: none; padding: 6px 14px; border-radius: 6px; cursor: pointer; font-weight: bold; font-family: inherit; }
         .dashboard-header-box { background: white; padding: 25px 30px; border-radius: 15px; margin-bottom: 30px; box-shadow: 0 4px 6px rgba(0,0,0,0.05); display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 15px; }
+        .badge-card { background: linear-gradient(135deg, var(--primary-blue), var(--dark-blue)); color: white; padding: 15px 20px; border-radius: 12px; display: flex; align-items: center; gap: 15px; margin-bottom: 20px; }
     </style>
 </head>
 <body>
 
     <nav class="navbar">
-        <div class="logo">Sahara <span>UniLinks</span></div>
-        <!-- قوائم التنقل التي ستخفي للعموم وتظهر بعد تسجيل الدخول -->
+        <div class="logo">Sahara<span>Verse</span></div>
         <ul class="nav-links" id="dynamic-nav-links" style="display: none;">
-            <li><a href="index.html" class="active">الرئيسية / حسابي</a></li>
-            <li><a href="trips.html">الرحلات</a></li>
+            <li><a href="index.html" class="active">الرئيسية / الفضاء</a></li>
+            <li><a href="trips.html">السياحة العلمية</a></li>
             <li><a href="events.html">الفعاليات</a></li>
             <li><a href="hosting.html">الاستضافة</a></li>
         </ul>
@@ -36,40 +36,50 @@
     <div id="guest-view">
         <header class="hero">
             <div class="hero-content">
-                <h1>اكتشف مؤهلات الصحراء المغربية</h1>
-                <p>منصة رقمية مبتكرة تربط طلبة الجامعات المغربية بالأقاليم الجنوبية لتعزيز التبادل الأكاديمي والتنموي.</p>
+                <h1>SaharaVerse: نحو بيئة رقمية للتنمية الترابية</h1>
+                <p>منصة ذكية تربط طلبة الجامعات المغربية بالأقاليم الجنوبية عبر الابتكار، البحث العلمي، والسياحة العلمية.</p>
                 <div class="hero-buttons">
                     <a href="register.html" class="btn-primary">انضم إلى المجتمع</a>
                 </div>
             </div>
         </header>
         <section style="padding: 60px 5%; text-align: center;">
-            <h2 style="color: var(--dark-blue); margin-bottom: 40px; font-size: 2.2rem;">ماذا نقدم للطلاب والأندية؟</h2>
+            <h2 style="color: var(--dark-blue); margin-bottom: 40px; font-size: 2.2rem;">مزايا إبداعية لخدمة التنمية</h2>
             <div class="features-grid">
-                <div class="feature-card"><h3>🌍 رحلات استكشافية</h3><p>برامج سفر اقتصادية لاكتشاف المعالم والمشاريع الكبرى.</p></div>
-                <div class="feature-card"><h3>🤝 استضافة متبادلة</h3><p>نظام آمن لاستضافة الطلاب لتقليل تكاليف السكن.</p></div>
-                <div class="feature-card"><h3>🎓 فعاليات وأنشطة</h3><p>ندوات وورشات عمل يقترحها الباحثون والأندية الطلابية.</p></div>
+                <div class="feature-card"><h3>💡 بنك التحديات الترابية</h3><p>طرح أفكار وحلول مبتكرة لتحديات التنمية المستدامة والاقتصاد الأزرق.</p></div>
+                <div class="feature-card"><h3>🗺️ خريطة السياحة العلمية</h3><p>توجيه الرحلات نحو المشاريع الكبرى ومراكز الابتكار بالجنوب.</p></div>
+                <div class="feature-card"><h3>🏆 نظام الشارات الرقمية</h3><p>تحفيز الباحثين والأندية عبر نقاط وشارات تفاعلية موثقة.</p></div>
             </div>
         </section>
     </div>
 
-    <!-- واجهة الطالب / النادي (لوحة التحكم الشخصية) -->
+    <!-- واجهة الطالب / النادي (لوحة التحكم الشخصية مع الشارات والاقتراحات) -->
     <div id="student-view" style="display: none;" class="dashboard-container animate-fade-in-up">
-        <div class="dashboard-header-box">
+        
+        <!-- بطاقة الشارات الرقمية (فكرة 4) -->
+        <div class="badge-card">
+            <div style="font-size: 2.5rem;">⭐</div>
             <div>
-                <h2 style="color: var(--dark-blue); margin-bottom: 5px;">فضاء التسيير التشاركي والاقتراحات</h2>
-                <p style="color: var(--text-light); font-size: 0.95rem;">ساهم معنا في إثراء برامج المنصة بأنشطة وندوات نوعية:</p>
-            </div>
-            <div style="display: flex; gap: 10px; flex-wrap: wrap;">
-                <button onclick="openModal('seminar-modal')" class="btn-primary" style="background-color: var(--primary-blue); padding: 10px 18px; font-size: 0.9rem; cursor: pointer;">+ اقترح ندوة</button>
-                <button onclick="openModal('activity-modal')" class="btn-primary" style="background-color: var(--sahara-gold); padding: 10px 18px; font-size: 0.9rem; cursor: pointer;">+ اقترح نشاط</button>
-                <button onclick="openModal('trip-modal')" class="btn-primary" style="background-color: #10b981; padding: 10px 18px; font-size: 0.9rem; cursor: pointer;">+ اقترح رحلة</button>
+                <h3 style="margin-bottom: 3px;">شارة: باحث نشيط في SaharaVerse</h3>
+                <p style="fontر-size: 0.9rem; opacity: 0.9;">لقد جمعت 120 نقطة تفاعلية. أنت مؤهل للأولوية في الرحلات الاستكشافية القادمة!</p>
             </div>
         </div>
 
-        <h3 style="color: var(--primary-blue); margin-bottom: 20px;">نشاطاتي ومقترحاتي المقدمة</h3>
+        <div class="dashboard-header-box">
+            <div>
+                <h2 style="color: var(--dark-blue); margin-bottom: 5px;">فضاء الابتكار والتسيير التشاركي</h2>
+                <p style="color: var(--text-light); font-size: 0.95rem;">ساهم بحلولك في بنك التحديات أو اقترح أنشطة نوعية:</p>
+            </div>
+            <div style="display: flex; gap: 10px; flex-wrap: wrap;">
+                <button onclick="openModal('seminar-modal')" class="btn-primary" style="background-color: var(--primary-blue); padding: 10px 15px; font-size: 0.85rem; cursor: pointer;">+ اقترح ندوة</button>
+                <button onclick="openModal('challenge-modal')" class="btn-primary" style="background-color: var(--sahara-gold); padding: 10px 15px; font-size: 0.85rem; cursor: pointer;">💡 شارك فكرة لتحدي</button>
+                <button onclick="openModal('trip-modal')" class="btn-primary" style="background-color: #10b981; padding: 10px 15px; font-size: 0.85rem; cursor: pointer;">+ اقترح رحلة علمية</button>
+            </div>
+        </div>
+
+        <h3 style="color: var(--primary-blue); margin-bottom: 20px;">مشاركاتي وأنشطتي المقدمة</h3>
         <div class="features-grid" id="my-proposals-grid">
-            <p style="color: var(--text-light);">لم تقم بإضافة أي مقترحات بعد. ابدأ باقتراح نشاطك الأول!</p>
+            <p style="color: var(--text-light);">لم تقم بإضافة أي مقترحات بعد. شارك بفكرتك الأولى الآن!</p>
         </div>
     </div>
 
@@ -77,27 +87,27 @@
     <div id="admin-view" style="display: none;" class="dashboard-container animate-fade-in-up">
         <div class="dashboard-header-box">
             <div>
-                <h2 style="color: var(--dark-blue); margin-bottom: 5px;">لوحة تحكم الإدارة المركزية</h2>
-                <p style="color: var(--text-light); font-size: 0.95rem;">مراجعة واعتماد مقترحات الندوات، الأنشطة، والرحلات الواردة.</p>
+                <h2 style="color: var(--dark-blue); margin-bottom: 5px;">لوحة تحكم الإدارة المركزية - SaharaVerse</h2>
+                <p style="color: var(--text-light); font-size: 0.95rem;">إدارة بنك الأفكار، مقترحات الرحلات، والفعاليات الأكاديمية.</p>
             </div>
-            <span style="background: var(--dark-blue); color: var(--sahara-gold); padding: 8px 16px; border-radius: 8px; font-weight: bold; font-size: 0.9rem;">وضع المسؤول (Admin)</span>
+            <span style="background: var(--dark-blue); color: var(--sahara-gold); padding: 8px 16px; border-radius: 8px; font-weight: bold; font-size: 0.9rem;">مسؤول النظام (Admin)</span>
         </div>
 
         <div class="features-grid" style="margin-bottom: 30px;">
-            <div class="stat-card"><h3>إجمالي الطلاب المسجلين</h3><div id="stat-students" style="font-size: 2rem; color: var(--primary-blue); font-weight: bold; margin-top: 5px;">0</div></div>
-            <div class="stat-card"><h3>الطلبات المعلقة للبت فيها</h3><div id="stat-pending" style="font-size: 2rem; color: var(--sahara-gold); font-weight: bold; margin-top: 5px;">0</div></div>
+            <div class="stat-card"><h3>إجمالي الأعضاء المسجلين</h3><div id="stat-students" style="font-size: 2rem; color: var(--primary-blue); font-weight: bold; margin-top: 5px;">0</div></div>
+            <div class="stat-card"><h3>المقترحات والتحديات المعلقة</h3><div id="stat-pending" style="font-size: 2rem; color: var(--sahara-gold); font-weight: bold; margin-top: 5px;">0</div></div>
         </div>
 
-        <h3 style="color: var(--primary-blue); margin-bottom: 15px;">قائمة المقترحات الواردة قيد الدراسة</h3>
+        <h3 style="color: var(--primary-blue); margin-bottom: 15px;">قائمة الأفكار والمقترحات الواردة</h3>
         <div style="overflow-x: auto;">
             <table class="admin-table">
                 <thead>
                     <tr>
                         <th>المُقترح</th>
-                        <th>نوع المقترح</th>
+                        <th>نوع المساهمة</th>
                         <th>العنوان والتفاصيل</th>
                         <th>الحالة</th>
-                        <th>الإجراء المطلوب</th>
+                        <th>الإجراء</th>
                     </tr>
                 </thead>
                 <tbody id="admin-table-body">
@@ -107,7 +117,7 @@
         </div>
     </div>
 
-    <!-- نافذة اقتراح ندوة أكاديمية -->
+    <!-- نافذة اقتراح ندوة -->
     <div class="modal-overlay" id="seminar-modal">
         <div class="modal">
             <div class="modal-header">
@@ -116,43 +126,42 @@
             </div>
             <div class="modal-body">
                 <form id="seminar-form">
-                    <div class="form-group"><label>عنوان الندوة</label><input type="text" id="sem-title" placeholder="مثال: ندوة الجهوية المتقدمة" required></div>
-                    <div class="form-group"><label>المحاور المستهدفة</label><textarea id="sem-desc" rows="3" placeholder="أبرز النقاط والمحاور..." required></textarea></div>
-                    <div class="form-group"><label>صيغة الحضور</label><select id="sem-mode"><option>حضوري</option><option>عن بعد (Online)</option></select></div>
+                    <div class="form-group"><label>عنوان الندوة</label><input type="text" id="sem-title" placeholder="مثال: آليات الإدارة والمالية العمومية" required></div>
+                    <div class="form-group"><label>المحاور المستهدفة</label><textarea id="sem-desc" rows="3" placeholder="أبرز النقاط..." required></textarea></div>
                     <button type="submit" class="btn-primary" style="width: 100%; cursor: pointer;">إرسال للإدارة</button>
                 </form>
             </div>
         </div>
     </div>
 
-    <!-- نافذة اقتراح نشاط أو ورشة -->
-    <div class="modal-overlay" id="activity-modal">
+    <!-- نافذة مشاركة فكرة في بنك التحديات (فكرة 1) -->
+    <div class="modal-overlay" id="challenge-modal">
         <div class="modal">
             <div class="modal-header">
-                <h3 style="color: var(--dark-blue);">اقترح نشاطاً أو ورشة عمل</h3>
-                <button class="modal-close" onclick="closeModal('activity-modal')">✕</button>
+                <h3 style="color: var(--dark-blue);">💡 حل تحدي ترابي أو فكرة ابتكارية</h3>
+                <button class="modal-close" onclick="closeModal('challenge-modal')">✕</button>
             </div>
             <div class="modal-body">
-                <form id="activity-form">
-                    <div class="form-group"><label>عنوان النشاط / الورشة</label><input type="text" id="act-title" placeholder="مثال: ورشة التطبيقات الذكية" required></div>
-                    <div class="form-group"><label>وصف النشاط والهدف منه</label><textarea id="act-desc" rows="3" placeholder="الفائدة المنتظرة للمشاركين..." required></textarea></div>
-                    <button type="submit" class="btn-primary" style="width: 100%; background-color: var(--sahara-gold); cursor: pointer;">إرسال للإدارة</button>
+                <form id="challenge-form">
+                    <div class="form-group"><label>التحدي المستهدف</label><select id="chal-type"><option>تحدي الاقتصاد الأزرق والبحري</option><option>تحدي الطاقات المتجددة والماء</option><option>تحدي الإدارة الرقمية الترابية</option></select></div>
+                    <div class="form-group"><label>فكرتك أو حلك المقترح</label><textarea id="chal-desc" rows="3" placeholder="اشرح فكرتك الإبداعية باختصار..." required></textarea></div>
+                    <button type="submit" class="btn-primary" style="width: 100%; background-color: var(--sahara-gold); cursor: pointer;">نشر الفكرة وكسب نقاط الشارة</button>
                 </form>
             </div>
         </div>
     </div>
 
-    <!-- نافذة اقتراح رحلة استكشافية -->
+    <!-- نافذة اقتراح رحلة علمية -->
     <div class="modal-overlay" id="trip-modal">
         <div class="modal">
             <div class="modal-header">
-                <h3 style="color: var(--dark-blue);">اقترح تنظيم رحلة استكشافية</h3>
+                <h3 style="color: var(--dark-blue);">اقترح رحلة سياحة علمية</h3>
                 <button class="modal-close" onclick="closeModal('trip-modal')">✕</button>
             </div>
             <div class="modal-body">
                 <form id="trip-form">
-                    <div class="form-group"><label>الوجهة المقترحة (المدينة)</label><input type="text" id="trip-title" placeholder="مثال: الداخلة أو العيون" required></div>
-                    <div class="form-group"><label>البرنامج الأكاديمي والاستكشافي</label><textarea id="trip-desc" rows="3" placeholder="المشاريع المزمع زيارتها..." required></textarea></div>
+                    <div class="form-group"><label>الوجهة (المدينة الصحراوية)</label><input type="text" id="trip-title" placeholder="مثال: الداخلة، العيون..." required></div>
+                    <div class="form-group"><label>الهدف الأكاديمي والاستكشافي</label><textarea id="trip-desc" rows="3" placeholder="المشاريع المزمع زيارتها..." required></textarea></div>
                     <button type="submit" class="btn-primary" style="width: 100%; background-color: #10b981; cursor: pointer;">إرسال للإدارة</button>
                 </form>
             </div>
@@ -161,7 +170,7 @@
 
     <footer>
       <div class="container footer-bottom" style="border:none;">
-        <p>© 2026 Sahara UniLinks. مشروع مقدم لـ Moroccan Sahara Innovation Challenge</p>
+        <p>© 2026 SaharaVerse. مشروع مقدم لـ Moroccan Sahara Innovation Challenge</p>
       </div>
     </footer>
 
@@ -170,7 +179,6 @@
         function openModal(id) { document.getElementById(id).classList.add('open'); }
         function closeModal(id) { document.getElementById(id).classList.remove('open'); }
 
-        // التحقق من إظهار القوائم بناءً على حالة تسجيل الدخول
         document.addEventListener('DOMContentLoaded', () => {
             const role = localStorage.getItem('sahara_role');
             const navLinks = document.getElementById('dynamic-nav-links');
@@ -179,9 +187,7 @@
             const adminView = document.getElementById('admin-view');
 
             if (role) {
-                // إذا كان المستخدم مسجلاً، نظهر قوائم التنقل
                 if (navLinks) navLinks.style.display = 'flex';
-
                 if (role === 'admin') {
                     if (guestView) guestView.style.display = 'none';
                     if (studentView) studentView.style.display = 'none';
@@ -192,7 +198,6 @@
                     if (studentView) studentView.style.display = 'block';
                 }
             } else {
-                // إذا لم يتم تسجيل الدخول، نخفي القوائم تماماً ونجعل الزائر يرى واجهة الترحيب فقط
                 if (navLinks) navLinks.style.display = 'none';
                 if (guestView) guestView.style.display = 'block';
                 if (studentView) studentView.style.display = 'none';
@@ -222,7 +227,7 @@
             if (tbody) {
                 tbody.innerHTML = '';
                 if (proposals.length === 0) {
-                    tbody.innerHTML = '<tr><td colspan="5" style="text-align:center; color:var(--text-light);">لا توجد مقترحات معلقة حالياً</td></tr>';
+                    tbody.innerHTML = '<tr><td colspan="5" style="text-align:center; color:var(--text-light);">لا توجد مقترحات أو تحديات معلقة حالياً</td></tr>';
                 } else {
                     proposals.forEach(p => {
                         let statusHtml = p.status === 'pending' ? '<span class="badge-pending">معلق</span>' : 
@@ -259,23 +264,23 @@
             e.preventDefault();
             saveNewProposal('ندوة أكاديمية', document.getElementById('sem-title').value, document.getElementById('sem-desc').value);
             closeModal('seminar-modal');
-            showToast('تم إرسال مقترح الندوة بنجاح إلى الإدارة!');
+            showToast('تم إرسال مقترح الندوة بنجاح!');
             e.target.reset();
         });
 
-        document.getElementById('activity-form').addEventListener('submit', (e) => {
+        document.getElementById('challenge-form').addEventListener('submit', (e) => {
             e.preventDefault();
-            saveNewProposal('نشاط / ورشة', document.getElementById('act-title').value, document.getElementById('act-desc').value);
-            closeModal('activity-modal');
-            showToast('تم إرسال مقترح النشاط بنجاح إلى الإدارة!');
+            saveNewProposal('فكرة تحدي ترابي', document.getElementById('chal-type').value, document.getElementById('chal-desc').value);
+            closeModal('challenge-modal');
+            showToast('تم نشر فكرتك بنجاح وكسبت نقاط الشارة! 💡');
             e.target.reset();
         });
 
         document.getElementById('trip-form').addEventListener('submit', (e) => {
             e.preventDefault();
-            saveNewProposal('رحلة استكشافية', document.getElementById('trip-title').value, document.getElementById('trip-desc').value);
+            saveNewProposal('رحلة علمية', document.getElementById('trip-title').value, document.getElementById('trip-desc').value);
             closeModal('trip-modal');
-            showToast('تم إرسال مقترح الرحلة بنجاح إلى الإدارة!');
+            showToast('تم إرسال مقترح الرحلة العلمية بنجاح!');
             e.target.reset();
         });
 
@@ -287,7 +292,7 @@
             });
             localStorage.setItem('sahara_proposals', JSON.stringify(proposals));
             renderDashboardData();
-            showToast(action === 'approve' ? 'تم قبول المقترح وإدراجه في المنصة بنجاح' : 'تم رفض المقترح', action === 'approve' ? 'success' : 'error');
+            showToast(action === 'approve' ? 'تم قبول المقترح وإدراجه بنجاح' : 'تم رفض المقترح', action === 'approve' ? 'success' : 'error');
         }
     </script>
 </body>
