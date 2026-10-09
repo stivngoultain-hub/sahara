@@ -23,7 +23,7 @@
 <body>
 
     <nav class="navbar">
-        <div class="logo">Sahara<span>Verse</span></div>
+        <a href="index.html" class="logo">Sahara<span>Verse</span></a>
         <ul class="nav-links" id="dynamic-nav-links" style="display: none;">
             <li><a href="index.html" class="active">الرئيسية / الفضاء</a></li>
             <li><a href="trips.html">السياحة العلمية</a></li>
@@ -38,7 +38,7 @@
         <header class="hero">
             <div class="hero-content">
                 <h1>SaharaVerse: نحو بيئة رقمية للتنمية والتشغيل</h1>
-                <p>منصة ذكية تربط طلبة الجامعات المغربية بالأقاليم الجنوبية عبر الابتكار، البحث العلمي، وفرص التدريب المهني.</p>
+                <p>منصة ذكية تربط طلبة الجامعات المغربية بالأقاليم الجنوبية لتعزيز الابتكار، البحث العلمي، وفرص التدريب المهني في الصحراء المغربية.</p>
                 <div class="hero-buttons">
                     <a href="register.html" class="btn-primary">انضم إلى المجتمع</a>
                 </div>
@@ -54,15 +54,14 @@
         </section>
     </div>
 
-    <!-- واجهة الطالب (تظهر مباشرة فور تسجيل الدخول بحساب غير الإدارة) -->
+    <!-- واجهة الطالب -->
     <div id="student-view" style="display: none;" class="dashboard-container animate-fade-in-up">
-        
         <!-- بطاقة الشارات الرقمية -->
         <div class="badge-card">
             <div style="font-size: 2.5rem;">⭐</div>
             <div>
                 <h3 style="margin-bottom: 3px;">شارة: باحث نشيط في SaharaVerse</h3>
-                <p style="font-size: 0.9rem; opacity: 0.9;">لقد جمعت 120 نقطة تفاعلية. أنت مؤهل للأولوية في عروض التدريب المهني!</p>
+                <p style="font-size: 0.9rem; opacity: 0.9;">لقد جمعت 120 نقطة تفاعلية. أنت مؤهل للأولوية في عروض التدريب المهني والرحلات!</p>
             </div>
         </div>
 
@@ -78,7 +77,7 @@
             </div>
         </div>
 
-        <!-- ركن فرصة لتدريب العمل والوظائف (يظهر بوضوح تام) -->
+        <!-- ركن فرصة -->
         <h3 style="color: var(--primary-blue); margin-bottom: 15px;">💼 ركن "فرصة": عروض التدريب والتشغيل المتاحة بالجنوب</h3>
         <div style="margin-bottom: 40px;">
             <div class="opportunity-card">
@@ -103,7 +102,7 @@
         </div>
     </div>
 
-    <!-- واجهة المدير الرسمية (لوحة الإدارة المحمية) -->
+    <!-- واجهة المدير -->
     <div id="admin-view" style="display: none;" class="dashboard-container animate-fade-in-up">
         <div class="dashboard-header-box">
             <div>
@@ -154,7 +153,7 @@
         </div>
     </div>
 
-    <!-- نافذة مشاركة فكرة في بنك التحديات -->
+    <!-- نافذة مشاركة فكرة -->
     <div class="modal-overlay" id="challenge-modal">
         <div class="modal">
             <div class="modal-header">
@@ -165,13 +164,13 @@
                 <form id="challenge-form">
                     <div class="form-group"><label>التحدي المستهدف</label><select id="chal-type"><option>تحدي الاقتصاد الأزرق والبحري</option><option>تحدي الطاقات المتجددة والماء</option><option>تحدي الإدارة الرقمية الترابية</option></select></div>
                     <div class="form-group"><label>فكرتك أو حلك المقترح</label><textarea id="chal-desc" rows="3" placeholder="اشرح فكرتك الإبداعية باختصار..." required></textarea></div>
-                    <button type="submit" class="btn-primary" style="width: 100%; background-color: var(--sahara-gold); cursor: pointer;">نشر الفكرة وكسب نقاط الشارة</button>
+                    <button type="submit" class="btn-primary" style="width: 100%; background-color: var(--sahara-gold); cursor: pointer;">نشر الفكرة وكسب النقاط</button>
                 </form>
             </div>
         </div>
     </div>
 
-    <!-- نافذة اقتراح رحلة علمية -->
+    <!-- نافذة اقتراح رحلة -->
     <div class="modal-overlay" id="trip-modal">
         <div class="modal">
             <div class="modal-header">
