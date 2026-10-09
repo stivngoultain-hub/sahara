@@ -20,7 +20,7 @@ body {
 
 /* Navbar */
 .navbar { background-color: #ffffff; padding: 15px 5%; display: flex; justify-content: space-between; align-items: center; box-shadow: 0 2px 10px rgba(0,0,0,0.05); position: sticky; top: 0; z-index: 1000; }
-.logo { font-size: 1.8rem; font-weight: 800; color: var(--dark-blue); }
+.logo { font-size: 1.8rem; font-weight: 800; color: var(--dark-blue); text-decoration: none; }
 .logo span { color: var(--primary-blue); }
 .nav-links { list-style: none; display: flex; gap: 30px; }
 .nav-links a { text-decoration: none; color: var(--text-main); font-weight: 500; font-size: 1.1rem; transition: color 0.3s; }
@@ -35,12 +35,12 @@ body {
 .btn-secondary:hover { border-color: var(--primary-blue); color: var(--primary-blue); }
 
 /* Layouts & Cards */
-.hero { background: linear-gradient(rgba(2, 132, 199, 0.9), rgba(15, 23, 42, 0.9)), url('https://images.unsplash.com/photo-1539020140153-e479b8c22e70?q=80&w=2000&auto=format&fit=crop') center/cover; height: 80vh; display: flex; align-items: center; justify-content: center; text-align: center; color: white; padding: 0 20px; }
-.hero h1 { font-size: 3.5rem; font-weight: 800; margin-bottom: 20px; }
-.hero p { font-size: 1.3rem; margin-bottom: 40px; opacity: 0.9; }
+.hero { background: linear-gradient(rgba(2, 132, 199, 0.9), rgba(15, 23, 42, 0.9)), url('https://images.unsplash.com/photo-1539020140153-e479b8c22e70?q=80&w=2000&auto=format&fit=crop') center/cover; height: 85vh; display: flex; align-items: center; justify-content: center; text-align: center; color: white; padding: 0 20px; }
+.hero h1 { font-size: 3rem; font-weight: 800; margin-bottom: 20px; }
+.hero p { font-size: 1.2rem; margin-bottom: 40px; opacity: 0.9; max-width: 800px; margin-left: auto; margin-right: auto; }
 .hero-buttons { display: flex; gap: 20px; justify-content: center; }
 .features-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 30px; }
-.feature-card { background: white; padding: 30px; border-radius: 15px; box-shadow: 0 10px 30px rgba(0,0,0,0.05); transition: transform 0.3s; }
+.feature-card { background: white; padding: 30px; border-radius: 15px; box-shadow: 0 10px 30px rgba(0,0,0,0.05); transition: transform 0.3s; text-align: right; }
 .feature-card:hover { transform: translateY(-5px); }
 
 /* Forms & Dashboard */
