@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>البوابة - Sahara UniLinks</title>
+    <title>البوابة - SaharaVerse</title>
     <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="styles.css">
     <style>
@@ -18,7 +18,7 @@
 <body>
 
     <nav class="navbar">
-        <div class="logo">Sahara <span>UniLinks</span></div>
+        <a href="index.html" class="logo">Sahara<span>Verse</span></a>
         <ul class="nav-links">
             <li><a href="index.html">الرئيسية</a></li>
         </ul>
@@ -62,7 +62,7 @@
     </div>
 
     <footer>
-      <div class="container footer-bottom" style="border:none;"><p>© 2026 Sahara UniLinks</p></div>
+      <div class="container footer-bottom" style="border:none;"><p>© 2026 SaharaVerse</p></div>
     </footer>
 
     <script src="app.js"></script>
@@ -78,7 +78,7 @@
             e.preventDefault();
             const email = document.getElementById('login-email').value;
             
-            // التحقق السري من صلاحيات الإدارة خلف الكواليس
+            // التحقق السري من صلاحيات الإدارة
             if(email === 'admin@sahara.ma') {
                 localStorage.setItem('sahara_role', 'admin');
                 showToast('مرحباً بك، لوحة الإدارة جاهزة');
