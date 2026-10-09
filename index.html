@@ -22,7 +22,8 @@
 
     <nav class="navbar">
         <div class="logo">Sahara <span>UniLinks</span></div>
-        <ul class="nav-links">
+        <!-- قوائم التنقل التي ستخفي للعموم وتظهر بعد تسجيل الدخول -->
+        <ul class="nav-links" id="dynamic-nav-links" style="display: none;">
             <li><a href="index.html" class="active">الرئيسية / حسابي</a></li>
             <li><a href="trips.html">الرحلات</a></li>
             <li><a href="events.html">الفعاليات</a></li>
@@ -39,7 +40,6 @@
                 <p>منصة رقمية مبتكرة تربط طلبة الجامعات المغربية بالأقاليم الجنوبية لتعزيز التبادل الأكاديمي والتنموي.</p>
                 <div class="hero-buttons">
                     <a href="register.html" class="btn-primary">انضم إلى المجتمع</a>
-                    <a href="trips.html" class="btn-secondary">تصفح الرحلات</a>
                 </div>
             </div>
         </header>
@@ -61,15 +61,14 @@
                 <p style="color: var(--text-light); font-size: 0.95rem;">ساهم معنا في إثراء برامج المنصة بأنشطة وندوات نوعية:</p>
             </div>
             <div style="display: flex; gap: 10px; flex-wrap: wrap;">
-                <button onclick="checkAuthAndOpen('seminar-modal')" class="btn-primary" style="background-color: var(--primary-blue); padding: 10px 18px; font-size: 0.9rem; cursor: pointer;">+ اقترح ندوة</button>
-                <button onclick="checkAuthAndOpen('activity-modal')" class="btn-primary" style="background-color: var(--sahara-gold); padding: 10px 18px; font-size: 0.9rem; cursor: pointer;">+ اقترح نشاط</button>
-                <button onclick="checkAuthAndOpen('trip-modal')" class="btn-primary" style="background-color: #10b981; padding: 10px 18px; font-size: 0.9rem; cursor: pointer;">+ اقترح رحلة</button>
+                <button onclick="openModal('seminar-modal')" class="btn-primary" style="background-color: var(--primary-blue); padding: 10px 18px; font-size: 0.9rem; cursor: pointer;">+ اقترح ندوة</button>
+                <button onclick="openModal('activity-modal')" class="btn-primary" style="background-color: var(--sahara-gold); padding: 10px 18px; font-size: 0.9rem; cursor: pointer;">+ اقترح نشاط</button>
+                <button onclick="openModal('trip-modal')" class="btn-primary" style="background-color: #10b981; padding: 10px 18px; font-size: 0.9rem; cursor: pointer;">+ اقترح رحلة</button>
             </div>
         </div>
 
         <h3 style="color: var(--primary-blue); margin-bottom: 20px;">نشاطاتي ومقترحاتي المقدمة</h3>
         <div class="features-grid" id="my-proposals-grid">
-            <!-- ستُعبأ ديناميكياً -->
             <p style="color: var(--text-light);">لم تقم بإضافة أي مقترحات بعد. ابدأ باقتراح نشاطك الأول!</p>
         </div>
     </div>
@@ -102,7 +101,7 @@
                     </tr>
                 </thead>
                 <tbody id="admin-table-body">
-                    <!-- تُعبأ ديناميكياً من الـ localStorage -->
+                    <!-- تعبئة ديناميكية -->
                 </tbody>
             </table>
         </div>
@@ -168,41 +167,57 @@
 
     <script src="app.js"></script>
     <script>
-        // التحقق من تسجيل الدخول قبل فتح أي نافذة اقتراح
-        function checkAuthAndOpen(modalId) {
-            const role = localStorage.getItem('sahara_role');
-            if (!role) {
-                showToast('يرجى تسجيل الدخول أولاً للاستفادة من هذه الخدمة', 'error');
-                setTimeout(() => { window.location.href = 'register.html'; }, 1500);
-                return;
-            }
-            openModal(modalId);
-        }
-
         function openModal(id) { document.getElementById(id).classList.add('open'); }
         function closeModal(id) { document.getElementById(id).classList.remove('open'); }
 
-        // تهيئة البيانات الافتراضية في التخزين المحلي إن لم تكن موجودة
+        // التحقق من إظهار القوائم بناءً على حالة تسجيل الدخول
+        document.addEventListener('DOMContentLoaded', () => {
+            const role = localStorage.getItem('sahara_role');
+            const navLinks = document.getElementById('dynamic-nav-links');
+            const guestView = document.getElementById('guest-view');
+            const studentView = document.getElementById('student-view');
+            const adminView = document.getElementById('admin-view');
+
+            if (role) {
+                // إذا كان المستخدم مسجلاً، نظهر قوائم التنقل
+                if (navLinks) navLinks.style.display = 'flex';
+
+                if (role === 'admin') {
+                    if (guestView) guestView.style.display = 'none';
+                    if (studentView) studentView.style.display = 'none';
+                    if (adminView) adminView.style.display = 'block';
+                } else {
+                    if (guestView) guestView.style.display = 'none';
+                    if (adminView) adminView.style.display = 'none';
+                    if (studentView) studentView.style.display = 'block';
+                }
+            } else {
+                // إذا لم يتم تسجيل الدخول، نخفي القوائم تماماً ونجعل الزائر يرى واجهة الترحيب فقط
+                if (navLinks) navLinks.style.display = 'none';
+                if (guestView) guestView.style.display = 'block';
+                if (studentView) studentView.style.display = 'none';
+                if (adminView) adminView.style.display = 'none';
+            }
+            renderDashboardData();
+        });
+
         if (!localStorage.getItem('sahara_proposals')) {
-            localStorage.setItem('sahara_proposals', JSON.stringify([
-                { id: 'req-1', author: 'عبد الله (طالب باحث)', type: 'ندوة أكاديمية', details: 'التدبير الإداري والمالي العمومي الحديث', status: 'pending' },
-                { id: 'req-2', author: 'نادي المبادرات الشبابية', type: 'نشاط / ورشة', details: 'ورشة مهارات العرض والتقديم الرقمي', status: 'pending' }
-            ]));
+            localStorage.setItem('sahara_proposals', JSON.stringify([]));
         }
         if (!localStorage.getItem('sahara_students_count')) {
-            localStorage.setItem('sahara_students_count', '1'); // يبدأ بـ 1 (أنت مثلاً أو 0 إذا أردت تماماً)
+            localStorage.setItem('sahara_students_count', '0');
         }
 
         function renderDashboardData() {
             const proposals = JSON.parse(localStorage.getItem('sahara_proposals')) || [];
             const studentCount = localStorage.getItem('sahara_students_count') || '0';
             
-            // تحديث الإحصائيات الحقيقية
-            document.getElementById('stat-students').textContent = studentCount;
+            const statStudents = document.getElementById('stat-students');
+            const statPending = document.getElementById('stat-pending');
+            if (statStudents) statStudents.textContent = studentCount;
             const pendingCount = proposals.filter(p => p.status === 'pending').length;
-            document.getElementById('stat-pending').textContent = pendingCount;
+            if (statPending) statPending.textContent = pendingCount;
 
-            // تعبئة جدول الإدارة
             const tbody = document.getElementById('admin-table-body');
             if (tbody) {
                 tbody.innerHTML = '';
@@ -232,7 +247,6 @@
             }
         }
 
-        // حفظ مقترح جديد
         function saveNewProposal(type, title, desc) {
             let proposals = JSON.parse(localStorage.getItem('sahara_proposals')) || [];
             const newId = 'req-' + Date.now();
@@ -243,9 +257,7 @@
 
         document.getElementById('seminar-form').addEventListener('submit', (e) => {
             e.preventDefault();
-            const title = document.getElementById('sem-title').value;
-            const desc = document.getElementById('sem-desc').value;
-            saveNewProposal('ندوة أكاديمية', title, desc);
+            saveNewProposal('ندوة أكاديمية', document.getElementById('sem-title').value, document.getElementById('sem-desc').value);
             closeModal('seminar-modal');
             showToast('تم إرسال مقترح الندوة بنجاح إلى الإدارة!');
             e.target.reset();
@@ -253,9 +265,7 @@
 
         document.getElementById('activity-form').addEventListener('submit', (e) => {
             e.preventDefault();
-            const title = document.getElementById('act-title').value;
-            const desc = document.getElementById('act-desc').value;
-            saveNewProposal('نشاط / ورشة', title, desc);
+            saveNewProposal('نشاط / ورشة', document.getElementById('act-title').value, document.getElementById('act-desc').value);
             closeModal('activity-modal');
             showToast('تم إرسال مقترح النشاط بنجاح إلى الإدارة!');
             e.target.reset();
@@ -263,9 +273,7 @@
 
         document.getElementById('trip-form').addEventListener('submit', (e) => {
             e.preventDefault();
-            const title = document.getElementById('trip-title').value;
-            const desc = document.getElementById('trip-desc').value;
-            saveNewProposal('رحلة استكشافية', title, desc);
+            saveNewProposal('رحلة استكشافية', document.getElementById('trip-title').value, document.getElementById('trip-desc').value);
             closeModal('trip-modal');
             showToast('تم إرسال مقترح الرحلة بنجاح إلى الإدارة!');
             e.target.reset();
@@ -274,19 +282,13 @@
         function handleReq(id, action) {
             let proposals = JSON.parse(localStorage.getItem('sahara_proposals')) || [];
             proposals = proposals.map(p => {
-                if (p.id === id) {
-                    p.status = action === 'approve' ? 'approved' : 'rejected';
-                }
+                if (p.id === id) { p.status = action === 'approve' ? 'approved' : 'rejected'; }
                 return p;
             });
             localStorage.setItem('sahara_proposals', JSON.stringify(proposals));
             renderDashboardData();
             showToast(action === 'approve' ? 'تم قبول المقترح وإدراجه في المنصة بنجاح' : 'تم رفض المقترح', action === 'approve' ? 'success' : 'error');
         }
-
-        document.addEventListener('DOMContentLoaded', () => {
-            renderDashboardData();
-        });
     </script>
 </body>
 </html>
