@@ -29,9 +29,8 @@
     </nav>
 
     <div class="auth-container">
-        <!-- شارة الأمان والامتثال القانوني -->
         <div class="security-badge">
-            🔒 <strong>بوابة آمنة ومشفرة:</strong> نحن نلتزم بحماية معطياتك الشخصية وفقاً لأعلى معايير الأمان والقانون المغربي لحماية المعطيات.
+            🔒 <strong>بوابة آمنة:</strong> الوصول مقيد للطلبة والباحثين. يرجى استخدام بريدك الجامعي أو الوطني (.ma).
         </div>
 
         <div class="auth-tabs">
@@ -42,12 +41,12 @@
         <!-- نموذج تسجيل الدخول -->
         <form id="login-form" class="auth-form active">
             <div class="form-group">
-                <label>البريد الإلكتروني الجامعي أو الشخصي</label>
+                <label>البريد الإلكتروني</label>
                 <input type="email" id="login-email" placeholder="student@uca.ma" required>
             </div>
             <div class="form-group">
                 <label>كلمة المرور المشفرة</label>
-                <input type="password" required>
+                <input type="password" id="login-pass" required>
             </div>
             <button type="submit" class="btn-primary" style="width: 100%; cursor: pointer;">دخول آمن</button>
         </form>
@@ -56,22 +55,21 @@
         <form id="register-form" class="auth-form">
             <div class="form-group">
                 <label>الاسم الكامل أو النادي الطلابي</label>
-                <input type="text" required>
+                <input type="text" id="reg-name" placeholder="الاسم الكامل" required>
             </div>
             <div class="form-group">
-                <label>البريد الإلكتروني</label>
-                <input type="email" required>
+                <label>البريد الإلكتروني (يجب أن ينتهي بـ .ma)</label>
+                <input type="email" id="reg-email" placeholder="example@uca.ma" required>
             </div>
             <div class="form-group">
-                <label>كلمة المرور (يجب أن تكون قوية)</label>
-                <input type="password" required>
+                <label>كلمة المرور (8 أحرف، أرقام وحروف)</label>
+                <input type="password" id="reg-pass" placeholder="********" required>
             </div>
             
-            <!-- خانة الموافقة القانونية (CNDP) -->
             <div class="checkbox-group">
                 <input type="checkbox" id="privacy-consent" required>
                 <label for="privacy-consent">
-                    أوافق صراحةً على <a href="#">سياسة الخصوصية</a> وأصرح بموافقتي على معالجة معطياتي الشخصية وتخزينها الآمن وفقاً <strong>للقانون المغربي 09-08</strong> المتعلق بحماية الأشخاص الذاتيين تجاه معالجة المعطيات ذات الطابع الشخصي (CNDP).
+                    أوافق صراحةً على <a href="#">سياسة الخصوصية</a> وأصرح بموافقتي على معالجة معطياتي وفقاً <strong>للقانون المغربي 09-08</strong> لحماية المعطيات (CNDP).
                 </label>
             </div>
 
@@ -87,6 +85,10 @@
 
     <script src="app.js"></script>
     <script>
+        const ADMIN_EMAIL = 'admin@sahara.ma';
+        const ADMIN_PASS = 'Admin2026';
+        let usersDB = JSON.parse(localStorage.getItem('sahara_users_db')) || [];
+
         function switchAuth(type, btn) {
             document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
             document.querySelectorAll('.auth-form').forEach(f => f.classList.remove('active'));
@@ -94,25 +96,59 @@
             document.getElementById(type + '-form').classList.add('active');
         }
 
-        document.getElementById('login-form').addEventListener('submit', (e) => {
-            e.preventDefault();
-            const email = document.getElementById('login-email').value;
-            
-            if(email === 'admin@sahara.ma') {
-                localStorage.setItem('sahara_role', 'admin');
-                showToast('مرحباً بك، الاتصال بلوحة الإدارة مشفر وآمن');
-            } else {
-                localStorage.setItem('sahara_role', 'student');
-                showToast('تم تسجيل الدخول الآمن بنجاح');
-            }
-            setTimeout(() => window.location.href = 'index.html', 1200);
-        });
-
         document.getElementById('register-form').addEventListener('submit', (e) => {
             e.preventDefault();
+            const name = document.getElementById('reg-name').value.trim();
+            const email = document.getElementById('reg-email').value.trim();
+            const password = document.getElementById('reg-pass').value;
+
+            if (!email.toLowerCase().endsWith('.ma')) {
+                showToast('عذراً! التسجيل متاح فقط للحسابات الجامعية التي تنتهي بـ .ma', 'error');
+                return;
+            }
+
+            const passwordRegex = /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$/;
+            if (!passwordRegex.test(password)) {
+                showToast('كلمة المرور ضعيفة: يجب أن لا تقل عن 8 أحرف وتتضمن حروفاً وأرقاماً.', 'error');
+                return;
+            }
+
+            if (usersDB.some(user => user.email === email)) {
+                showToast('هذا البريد الإلكتروني مسجل لدينا بالفعل!', 'error');
+                return;
+            }
+
+            usersDB.push({ name: name, email: email, password: password, role: 'student' });
+            localStorage.setItem('sahara_users_db', JSON.stringify(usersDB));
             localStorage.setItem('sahara_role', 'student');
-            showToast('تم إنشاء الحساب، بياناتك مشفرة ومحمية بالكامل');
-            setTimeout(() => window.location.href = 'index.html', 1200);
+            localStorage.setItem('sahara_current_user', name);
+            
+            showToast('تم إنشاء الحساب بنجاح! جاري توجيهك لفضاء الطالب...');
+            setTimeout(() => window.location.href = 'index.html', 1500);
+        });
+
+        document.getElementById('login-form').addEventListener('submit', (e) => {
+            e.preventDefault();
+            const email = document.getElementById('login-email').value.trim();
+            const password = document.getElementById('login-pass').value;
+            
+            if(email === ADMIN_EMAIL && password === ADMIN_PASS) {
+                localStorage.setItem('sahara_role', 'admin');
+                localStorage.setItem('sahara_current_user', 'الإدارة المركزية');
+                showToast('مرحباً بك، الاتصال بلوحة الإدارة مشفر وآمن');
+                setTimeout(() => window.location.href = 'index.html', 1500);
+                return;
+            } 
+            
+            const user = usersDB.find(u => u.email === email && u.password === password);
+            if (user) {
+                localStorage.setItem('sahara_role', 'student');
+                localStorage.setItem('sahara_current_user', user.name);
+                showToast(`مرحباً بك مجدداً ${user.name}، تسجيل دخول ناجح.`);
+                setTimeout(() => window.location.href = 'index.html', 1500);
+            } else {
+                showToast('خطأ في بيانات الدخول! البريد أو كلمة المرور غير صحيحة.', 'error');
+            }
         });
     </script>
 </body>
