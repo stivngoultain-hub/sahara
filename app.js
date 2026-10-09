@@ -60,6 +60,14 @@ function protectRoutes() {
         }
     }
 
+    // 2. قفل الصفحات الداخلية إذا لم يتم تسجيل الدخول
+    const protectedPages = ['trips.html', 'events.html', 'hosting.html'];
+    if (protectedPages.includes(currentPage) && !userRole) {
+        alert('الرجاء تسجيل الدخول أولاً للوصول إلى هذا القسم!');
+        window.location.href = 'register.html';
+        return;
+    }
+
     // تحديث أزرار شريط التنقل في جميع الصفحات بناءً على حالة تسجيل الدخول
     document.querySelectorAll('.btn-nav').forEach(btn => {
         if(userRole) {
@@ -78,6 +86,12 @@ function protectRoutes() {
             btn.style.backgroundColor = 'var(--primary-blue)';
         }
     });
+
+    // إظهار أو إخفاء قوائم التنقل بناءً على حالة تسجيل الدخول
+    const navLinks = document.getElementById('dynamic-nav-links');
+    if (navLinks) {
+        navLinks.style.display = userRole ? 'flex' : 'none';
+    }
 }
 
 // ── التهيئة العامة عند تحميل الصفحة ───────────────────────────
