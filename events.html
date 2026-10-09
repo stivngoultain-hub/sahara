@@ -3,17 +3,17 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>الفعاليات - Sahara UniLinks</title>
+    <title>الفعاليات - SaharaVerse</title>
     <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
 
     <nav class="navbar">
-        <div class="logo">Sahara <span>UniLinks</span></div>
-        <ul class="nav-links">
-            <li><a href="index.html">الرئيسية / حسابي</a></li>
-            <li><a href="trips.html">الرحلات</a></li>
+        <a href="index.html" class="logo">Sahara<span>Verse</span></a>
+        <ul class="nav-links" id="dynamic-nav-links">
+            <li><a href="index.html">الرئيسية / الفضاء</a></li>
+            <li><a href="trips.html">السياحة العلمية</a></li>
             <li><a href="events.html" class="active">الفعاليات</a></li>
             <li><a href="hosting.html">الاستضافة</a></li>
         </ul>
@@ -21,43 +21,44 @@
     </nav>
 
     <section class="dashboard-container">
-        <h2 style="text-align: center; color: var(--dark-blue); font-size: 2.5rem; margin-bottom: 40px;">الفعاليات الأكاديمية</h2>
+        <h2 style="text-align: center; color: var(--dark-blue); font-size: 2.2rem; margin-bottom: 40px;">الفعاليات والندوات الأكاديمية</h2>
+        
         <div class="features-grid">
             <div class="feature-card">
-                <h3 style="color: var(--primary-blue);">ندوة: التدبير الترابي</h3>
-                <p style="margin: 15px 0;">مناقشة آليات الإدارة العمومية (حضوري).</p>
-                <button onclick="registerEvent()" class="btn-primary">تسجيل الحضور</button>
+                <h3 style="color: var(--primary-blue);">ندوة: التدبير الترابي والتنمية بالجنوب</h3>
+                <p style="margin: 15px 0;">مناقشة آليات الجهوية المتقدمة والإدارة العمومية الحديثة.</p>
+                <button onclick="registerEvent()" class="btn-primary">تسجيل حضور</button>
             </div>
             <div class="feature-card">
-                <h3 style="color: var(--primary-blue);">ورشة التحول الرقمي</h3>
-                <p style="margin: 15px 0;">لقاء عن بعد حول رقمنة الخدمات.</p>
-                <button onclick="registerEvent()" class="btn-primary">تسجيل الحضور</button>
+                <h3 style="color: var(--primary-blue);">ورشة عمل: ريادة الأعمال المستدامة</h3>
+                <p style="margin: 15px 0;">تطوير المشاريع الناشئة في الاقتصاد البحري والطبيعي بالصحراء.</p>
+                <button onclick="registerEvent()" class="btn-primary">تسجيل حضور</button>
             </div>
         </div>
     </section>
 
-    <!-- نافذة الفعاليات -->
+    <!-- نافذة تسجيل الفعالية -->
     <div class="modal-overlay" id="event-modal">
         <div class="modal">
             <div class="modal-header">
-                <h3>تأكيد الحضور</h3>
+                <h3>تأكيد تسجيل الحضور</h3>
                 <button class="modal-close" onclick="closeModal()">✕</button>
             </div>
             <div class="modal-body">
-                <p style="margin-bottom: 20px;">هل أنت متأكد من حجز مقعدك؟</p>
+                <p style="margin-bottom: 20px;">هل ترغب في تسجيل حضورك وتأكيد مقعدك في الفعالية؟</p>
                 <button onclick="confirmEvent()" class="btn-primary" style="width: 100%;">تأكيد</button>
             </div>
         </div>
     </div>
 
-    <footer><div class="container footer-bottom" style="border:none;"><p>© 2026 Sahara UniLinks</p></div></footer>
+    <footer><div class="container footer-bottom" style="border:none;"><p>© 2026 SaharaVerse</p></div></footer>
     <script src="app.js"></script>
     <script>
         function registerEvent() { document.getElementById('event-modal').classList.add('open'); }
         function closeModal() { document.getElementById('event-modal').classList.remove('open'); }
         function confirmEvent() {
             closeModal();
-            showToast('تم تسجيل حضورك بنجاح!');
+            showToast('تم تسجيل حضورك في الفعالية بنجاح! 🎓');
         }
     </script>
 </body>
