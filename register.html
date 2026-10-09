@@ -78,7 +78,7 @@
             e.preventDefault();
             const email = document.getElementById('login-email').value;
             
-            // تخصيص الصلاحية سرياً: إذا كان بريد الإدارة، يمنح صلاحية admin
+            // التحقق السري من صلاحيات الإدارة خلف الكواليس
             if(email === 'admin@sahara.ma') {
                 localStorage.setItem('sahara_role', 'admin');
                 showToast('مرحباً بك، لوحة الإدارة جاهزة');
