@@ -17,6 +17,7 @@
         .btn-action-reject { background-color: #ef4444; color: white; border: none; padding: 6px 14px; border-radius: 6px; cursor: pointer; font-weight: bold; font-family: inherit; }
         .dashboard-header-box { background: white; padding: 25px 30px; border-radius: 15px; margin-bottom: 30px; box-shadow: 0 4px 6px rgba(0,0,0,0.05); display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 15px; }
         .badge-card { background: linear-gradient(135deg, var(--primary-blue), var(--dark-blue)); color: white; padding: 15px 20px; border-radius: 12px; display: flex; align-items: center; gap: 15px; margin-bottom: 20px; }
+        .opportunity-card { background: white; padding: 20px; border-radius: 12px; box-shadow: 0 4px 6px rgba(0,0,0,0.05); border-right: 4px solid var(--sahara-gold); margin-bottom: 15px; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 15px; }
     </style>
 </head>
 <body>
@@ -36,32 +37,32 @@
     <div id="guest-view">
         <header class="hero">
             <div class="hero-content">
-                <h1>SaharaVerse: نحو بيئة رقمية للتنمية الترابية</h1>
-                <p>منصة ذكية تربط طلبة الجامعات المغربية بالأقاليم الجنوبية عبر الابتكار، البحث العلمي، والسياحة العلمية.</p>
+                <h1>SaharaVerse: نحو بيئة رقمية للتنمية والتشغيل</h1>
+                <p>منصة ذكية تربط طلبة الجامعات المغربية بالأقاليم الجنوبية عبر الابتكار، البحث العلمي، وفرص التدريب المهني.</p>
                 <div class="hero-buttons">
                     <a href="register.html" class="btn-primary">انضم إلى المجتمع</a>
                 </div>
             </div>
         </header>
         <section style="padding: 60px 5%; text-align: center;">
-            <h2 style="color: var(--dark-blue); margin-bottom: 40px; font-size: 2.2rem;">مزايا إبداعية لخدمة التنمية</h2>
+            <h2 style="color: var(--dark-blue); margin-bottom: 40px; font-size: 2.2rem;">مزايا إبداعية لخدمة التنمية والتشغيل</h2>
             <div class="features-grid">
                 <div class="feature-card"><h3>💡 بنك التحديات الترابية</h3><p>طرح أفكار وحلول مبتكرة لتحديات التنمية المستدامة والاقتصاد الأزرق.</p></div>
-                <div class="feature-card"><h3>🗺️ خريطة السياحة العلمية</h3><p>توجيه الرحلات نحو المشاريع الكبرى ومراكز الابتكار بالجنوب.</p></div>
+                <div class="feature-card"><h3>💼 ركن "فرصة" للتشغيل</h3><p>تمكين الطلاب من فرص تدريب ميداني وعملي في مؤسسات وشركات الجنوب.</p></div>
                 <div class="feature-card"><h3>🏆 نظام الشارات الرقمية</h3><p>تحفيز الباحثين والأندية عبر نقاط وشارات تفاعلية موثقة.</p></div>
             </div>
         </section>
     </div>
 
-    <!-- واجهة الطالب / النادي (لوحة التحكم الشخصية مع الشارات والاقتراحات) -->
+    <!-- واجهة الطالب / النادي (لوحة التحكم الشخصية مع ركن فرصة) -->
     <div id="student-view" style="display: none;" class="dashboard-container animate-fade-in-up">
         
-        <!-- بطاقة الشارات الرقمية (فكرة 4) -->
+        <!-- بطاقة الشارات الرقمية -->
         <div class="badge-card">
             <div style="font-size: 2.5rem;">⭐</div>
             <div>
                 <h3 style="margin-bottom: 3px;">شارة: باحث نشيط في SaharaVerse</h3>
-                <p style="fontر-size: 0.9rem; opacity: 0.9;">لقد جمعت 120 نقطة تفاعلية. أنت مؤهل للأولوية في الرحلات الاستكشافية القادمة!</p>
+                <p style="font-size: 0.9rem; opacity: 0.9;">لقد جمعت 120 نقطة تفاعلية. أنت مؤهل للأولوية في عروض التدريب المهني!</p>
             </div>
         </div>
 
@@ -77,6 +78,25 @@
             </div>
         </div>
 
+        <!-- ركن فرصة لتدريب العمل والوظائف -->
+        <h3 style="color: var(--primary-blue); margin-bottom: 15px;">💼 ركن "فرصة": عروض التدريب والتشغيل المتاحة بالجنوب</h3>
+        <div style="margin-bottom: 40px;">
+            <div class="opportunity-card">
+                <div>
+                    <h4 style="color: var(--dark-blue); margin-bottom: 5px;">متدرب في الإدارة المالية والتدبير</h4>
+                    <p style="color: var(--text-light); font-size: 0.9rem;">المؤسسة: الميناء الأطلسي الداخلة | النوع: تدريب ميداني (Stage)</p>
+                </div>
+                <button onclick="applyOpportunity('متدرب في الإدارة المالية - الداخلة')" class="btn-primary" style="padding: 8px 20px; font-size: 0.9rem; cursor: pointer;">تقدم للفرصة</button>
+            </div>
+            <div class="opportunity-card" style="border-right-color: var(--primary-blue);">
+                <div>
+                    <h4 style="color: var(--dark-blue); margin-bottom: 5px;">مساعد مشاريع الطاقات المتجددة</h4>
+                    <p style="color: var(--text-light); font-size: 0.9rem;">المؤسسة: الوكالة الجهوية للاستثمار بالعيون | النوع: عقد عمل / تدريب</p>
+                </div>
+                <button onclick="applyOpportunity('مساعد مشاريع - العيون')" class="btn-primary" style="background-color: var(--primary-blue); padding: 8px 20px; font-size: 0.9rem; cursor: pointer;">تقدم للفرصة</button>
+            </div>
+        </div>
+
         <h3 style="color: var(--primary-blue); margin-bottom: 20px;">مشاركاتي وأنشطتي المقدمة</h3>
         <div class="features-grid" id="my-proposals-grid">
             <p style="color: var(--text-light);">لم تقم بإضافة أي مقترحات بعد. شارك بفكرتك الأولى الآن!</p>
@@ -88,7 +108,7 @@
         <div class="dashboard-header-box">
             <div>
                 <h2 style="color: var(--dark-blue); margin-bottom: 5px;">لوحة تحكم الإدارة المركزية - SaharaVerse</h2>
-                <p style="color: var(--text-light); font-size: 0.95rem;">إدارة بنك الأفكار، مقترحات الرحلات، والفعاليات الأكاديمية.</p>
+                <p style="color: var(--text-light); font-size: 0.95rem;">إدارة بنك الأفكار، مقترحات الرحلات، وعروض "فرصة" للتشغيل.</p>
             </div>
             <span style="background: var(--dark-blue); color: var(--sahara-gold); padding: 8px 16px; border-radius: 8px; font-weight: bold; font-size: 0.9rem;">مسؤول النظام (Admin)</span>
         </div>
@@ -134,7 +154,7 @@
         </div>
     </div>
 
-    <!-- نافذة مشاركة فكرة في بنك التحديات (فكرة 1) -->
+    <!-- نافذة مشاركة فكرة في بنك التحديات -->
     <div class="modal-overlay" id="challenge-modal">
         <div class="modal">
             <div class="modal-header">
@@ -178,6 +198,10 @@
     <script>
         function openModal(id) { document.getElementById(id).classList.add('open'); }
         function closeModal(id) { document.getElementById(id).classList.remove('open'); }
+
+        function applyOpportunity(title) {
+            showToast('تم إرسال ترشيحك لفرصة "' + title + '" بنجاح! بالتوفيق 🚀', 'success');
+        }
 
         document.addEventListener('DOMContentLoaded', () => {
             const role = localStorage.getItem('sahara_role');
@@ -292,7 +316,7 @@
             });
             localStorage.setItem('sahara_proposals', JSON.stringify(proposals));
             renderDashboardData();
-            showToast(action === 'approve' ? 'تم قبول المقترح وإدراجه بنجاح' : 'تم رفض المقترح', action === 'approve' ? 'success' : 'error');
+            showToast(action === 'approve' ? 'تم قبول المقترح وإدراجه في المنصة بنجاح' : 'تم رفض المقترح', action === 'approve' ? 'success' : 'error');
         }
     </script>
 </body>
