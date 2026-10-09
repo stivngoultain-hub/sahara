@@ -61,18 +61,16 @@
                 <p style="color: var(--text-light); font-size: 0.95rem;">ساهم معنا في إثراء برامج المنصة بأنشطة وندوات نوعية:</p>
             </div>
             <div style="display: flex; gap: 10px; flex-wrap: wrap;">
-                <button onclick="openModal('seminar-modal')" class="btn-primary" style="background-color: var(--primary-blue); padding: 10px 18px; font-size: 0.9rem;">+ اقترح ندوة</button>
-                <button onclick="openModal('activity-modal')" class="btn-primary" style="background-color: var(--sahara-gold); padding: 10px 18px; font-size: 0.9rem;">+ اقترح نشاط</button>
-                <button onclick="openModal('trip-modal')" class="btn-primary" style="background-color: #10b981; padding: 10px 18px; font-size: 0.9rem;">+ اقترح رحلة</button>
+                <button onclick="checkAuthAndOpen('seminar-modal')" class="btn-primary" style="background-color: var(--primary-blue); padding: 10px 18px; font-size: 0.9rem; cursor: pointer;">+ اقترح ندوة</button>
+                <button onclick="checkAuthAndOpen('activity-modal')" class="btn-primary" style="background-color: var(--sahara-gold); padding: 10px 18px; font-size: 0.9rem; cursor: pointer;">+ اقترح نشاط</button>
+                <button onclick="checkAuthAndOpen('trip-modal')" class="btn-primary" style="background-color: #10b981; padding: 10px 18px; font-size: 0.9rem; cursor: pointer;">+ اقترح رحلة</button>
             </div>
         </div>
 
         <h3 style="color: var(--primary-blue); margin-bottom: 20px;">نشاطاتي ومقترحاتي المقدمة</h3>
-        <div class="features-grid">
-            <div class="feature-card" style="border-right: 4px solid #10b981; text-align: right;">
-                <h3 style="font-size: 1.1rem; margin-bottom: 8px;">رحلة الداخلة الأكاديمية</h3>
-                <p style="color: var(--text-light); font-size: 0.9rem;">المدة: 3 أيام | الحالة: <strong style="color: #10b981;">مؤكد</strong></p>
-            </div>
+        <div class="features-grid" id="my-proposals-grid">
+            <!-- ستُعبأ ديناميكياً -->
+            <p style="color: var(--text-light);">لم تقم بإضافة أي مقترحات بعد. ابدأ باقتراح نشاطك الأول!</p>
         </div>
     </div>
 
@@ -87,8 +85,8 @@
         </div>
 
         <div class="features-grid" style="margin-bottom: 30px;">
-            <div class="stat-card"><h3>إجمالي الطلاب المسجلين</h3><div class="stat-number" data-target="1240" style="font-size: 2rem; color: var(--primary-blue); font-weight: bold; margin-top: 5px;">1,240</div></div>
-            <div class="stat-card"><h3>الطلبات المعلقة للبت فيها</h3><div class="stat-number" data-target="18" style="font-size: 2rem; color: var(--sahara-gold); font-weight: bold; margin-top: 5px;">18</div></div>
+            <div class="stat-card"><h3>إجمالي الطلاب المسجلين</h3><div id="stat-students" style="font-size: 2rem; color: var(--primary-blue); font-weight: bold; margin-top: 5px;">0</div></div>
+            <div class="stat-card"><h3>الطلبات المعلقة للبت فيها</h3><div id="stat-pending" style="font-size: 2rem; color: var(--sahara-gold); font-weight: bold; margin-top: 5px;">0</div></div>
         </div>
 
         <h3 style="color: var(--primary-blue); margin-bottom: 15px;">قائمة المقترحات الواردة قيد الدراسة</h3>
@@ -96,38 +94,15 @@
             <table class="admin-table">
                 <thead>
                     <tr>
-                        <th>المُقترح (طالب / نادي)</th>
+                        <th>المُقترح</th>
                         <th>نوع المقترح</th>
                         <th>العنوان والتفاصيل</th>
                         <th>الحالة</th>
                         <th>الإجراء المطلوب</th>
                     </tr>
                 </thead>
-                <tbody>
-                    <tr id="req-1">
-                        <td style="font-weight: 500;">عبد الله (طالب باحث)</td>
-                        <td>ندوة أكاديمية</td>
-                        <td>التدبير الإداري والمالي العمومي الحديث</td>
-                        <td><span class="badge-pending">معلق</span></td>
-                        <td>
-                            <div class="action-btns">
-                                <button class="btn-action-accept" onclick="handleReq('req-1', 'approve')">قبول</button>
-                                <button class="btn-action-reject" onclick="handleReq('req-1', 'reject')">رفض</button>
-                            </div>
-                        </td>
-                    </tr>
-                    <tr id="req-2">
-                        <td style="font-weight: 500;">نادي المبادرات الشبابية</td>
-                        <td>نشاط / ورشة</td>
-                        <td>ورشة مهارات العرض والتقديم الرقمي</td>
-                        <td><span class="badge-pending">معلق</span></td>
-                        <td>
-                            <div class="action-btns">
-                                <button class="btn-action-accept" onclick="handleReq('req-2', 'approve')">قبول</button>
-                                <button class="btn-action-reject" onclick="handleReq('req-2', 'reject')">رفض</button>
-                            </div>
-                        </td>
-                    </tr>
+                <tbody id="admin-table-body">
+                    <!-- تُعبأ ديناميكياً من الـ localStorage -->
                 </tbody>
             </table>
         </div>
@@ -142,9 +117,9 @@
             </div>
             <div class="modal-body">
                 <form id="seminar-form">
-                    <div class="form-group"><label>عنوان الندوة</label><input type="text" placeholder="مثال: ندوة الجهوية المتقدمة" required></div>
-                    <div class="form-group"><label>المحاور المستهدفة</label><textarea rows="3" placeholder="أبرز النقاط والمحاور..." required></textarea></div>
-                    <div class="form-group"><label>صيغة الحضور</label><select><option>حضوري</option><option>عن بعد (Online)</option></select></div>
+                    <div class="form-group"><label>عنوان الندوة</label><input type="text" id="sem-title" placeholder="مثال: ندوة الجهوية المتقدمة" required></div>
+                    <div class="form-group"><label>المحاور المستهدفة</label><textarea id="sem-desc" rows="3" placeholder="أبرز النقاط والمحاور..." required></textarea></div>
+                    <div class="form-group"><label>صيغة الحضور</label><select id="sem-mode"><option>حضوري</option><option>عن بعد (Online)</option></select></div>
                     <button type="submit" class="btn-primary" style="width: 100%; cursor: pointer;">إرسال للإدارة</button>
                 </form>
             </div>
@@ -160,8 +135,8 @@
             </div>
             <div class="modal-body">
                 <form id="activity-form">
-                    <div class="form-group"><label>عنوان النشاط / الورشة</label><input type="text" placeholder="مثال: ورشة التطبيقات الذكية" required></div>
-                    <div class="form-group"><label>وصف النشاط والهدف منه</label><textarea rows="3" placeholder="الفائدة المنتظرة للمشاركين..." required></textarea></div>
+                    <div class="form-group"><label>عنوان النشاط / الورشة</label><input type="text" id="act-title" placeholder="مثال: ورشة التطبيقات الذكية" required></div>
+                    <div class="form-group"><label>وصف النشاط والهدف منه</label><textarea id="act-desc" rows="3" placeholder="الفائدة المنتظرة للمشاركين..." required></textarea></div>
                     <button type="submit" class="btn-primary" style="width: 100%; background-color: var(--sahara-gold); cursor: pointer;">إرسال للإدارة</button>
                 </form>
             </div>
@@ -177,8 +152,8 @@
             </div>
             <div class="modal-body">
                 <form id="trip-form">
-                    <div class="form-group"><label>الوجهة المقترحة (المدينة)</label><input type="text" placeholder="مثال: الداخلة أو العيون" required></div>
-                    <div class="form-group"><label>البرنامج الأكاديمي والاستكشافي</label><textarea rows="3" placeholder="المشاريع المزمع زيارتها..." required></textarea></div>
+                    <div class="form-group"><label>الوجهة المقترحة (المدينة)</label><input type="text" id="trip-title" placeholder="مثال: الداخلة أو العيون" required></div>
+                    <div class="form-group"><label>البرنامج الأكاديمي والاستكشافي</label><textarea id="trip-desc" rows="3" placeholder="المشاريع المزمع زيارتها..." required></textarea></div>
                     <button type="submit" class="btn-primary" style="width: 100%; background-color: #10b981; cursor: pointer;">إرسال للإدارة</button>
                 </form>
             </div>
@@ -193,34 +168,125 @@
 
     <script src="app.js"></script>
     <script>
+        // التحقق من تسجيل الدخول قبل فتح أي نافذة اقتراح
+        function checkAuthAndOpen(modalId) {
+            const role = localStorage.getItem('sahara_role');
+            if (!role) {
+                showToast('يرجى تسجيل الدخول أولاً للاستفادة من هذه الخدمة', 'error');
+                setTimeout(() => { window.location.href = 'register.html'; }, 1500);
+                return;
+            }
+            openModal(modalId);
+        }
+
         function openModal(id) { document.getElementById(id).classList.add('open'); }
         function closeModal(id) { document.getElementById(id).classList.remove('open'); }
-        
+
+        // تهيئة البيانات الافتراضية في التخزين المحلي إن لم تكن موجودة
+        if (!localStorage.getItem('sahara_proposals')) {
+            localStorage.setItem('sahara_proposals', JSON.stringify([
+                { id: 'req-1', author: 'عبد الله (طالب باحث)', type: 'ندوة أكاديمية', details: 'التدبير الإداري والمالي العمومي الحديث', status: 'pending' },
+                { id: 'req-2', author: 'نادي المبادرات الشبابية', type: 'نشاط / ورشة', details: 'ورشة مهارات العرض والتقديم الرقمي', status: 'pending' }
+            ]));
+        }
+        if (!localStorage.getItem('sahara_students_count')) {
+            localStorage.setItem('sahara_students_count', '1'); // يبدأ بـ 1 (أنت مثلاً أو 0 إذا أردت تماماً)
+        }
+
+        function renderDashboardData() {
+            const proposals = JSON.parse(localStorage.getItem('sahara_proposals')) || [];
+            const studentCount = localStorage.getItem('sahara_students_count') || '0';
+            
+            // تحديث الإحصائيات الحقيقية
+            document.getElementById('stat-students').textContent = studentCount;
+            const pendingCount = proposals.filter(p => p.status === 'pending').length;
+            document.getElementById('stat-pending').textContent = pendingCount;
+
+            // تعبئة جدول الإدارة
+            const tbody = document.getElementById('admin-table-body');
+            if (tbody) {
+                tbody.innerHTML = '';
+                if (proposals.length === 0) {
+                    tbody.innerHTML = '<tr><td colspan="5" style="text-align:center; color:var(--text-light);">لا توجد مقترحات معلقة حالياً</td></tr>';
+                } else {
+                    proposals.forEach(p => {
+                        let statusHtml = p.status === 'pending' ? '<span class="badge-pending">معلق</span>' : 
+                                         (p.status === 'approved' ? '<span style="color:#059669; font-weight:bold;">تم القبول</span>' : '<span style="color:#dc2626; font-weight:bold;">مرفوض</span>');
+                        
+                        let actionsHtml = p.status === 'pending' ? `
+                            <div class="action-btns">
+                                <button class="btn-action-accept" onclick="handleReq('${p.id}', 'approve')">قبول</button>
+                                <button class="btn-action-reject" onclick="handleReq('${p.id}', 'reject')">رفض</button>
+                            </div>` : 'تم البت في الطلب';
+
+                        tbody.innerHTML += `
+                            <tr id="${p.id}">
+                                <td style="font-weight: 500;">${p.author}</td>
+                                <td>${p.type}</td>
+                                <td>${p.details}</td>
+                                <td>${statusHtml}</td>
+                                <td>${actionsHtml}</td>
+                            </tr>`;
+                    });
+                }
+            }
+        }
+
+        // حفظ مقترح جديد
+        function saveNewProposal(type, title, desc) {
+            let proposals = JSON.parse(localStorage.getItem('sahara_proposals')) || [];
+            const newId = 'req-' + Date.now();
+            proposals.push({ id: newId, author: 'عبد الله (طالب مسجل)', type: type, details: title + ' - ' + desc, status: 'pending' });
+            localStorage.setItem('sahara_proposals', JSON.stringify(proposals));
+            renderDashboardData();
+        }
+
         document.getElementById('seminar-form').addEventListener('submit', (e) => {
             e.preventDefault();
+            const title = document.getElementById('sem-title').value;
+            const desc = document.getElementById('sem-desc').value;
+            saveNewProposal('ندوة أكاديمية', title, desc);
             closeModal('seminar-modal');
             showToast('تم إرسال مقترح الندوة بنجاح إلى الإدارة!');
+            e.target.reset();
         });
+
         document.getElementById('activity-form').addEventListener('submit', (e) => {
             e.preventDefault();
+            const title = document.getElementById('act-title').value;
+            const desc = document.getElementById('act-desc').value;
+            saveNewProposal('نشاط / ورشة', title, desc);
             closeModal('activity-modal');
             showToast('تم إرسال مقترح النشاط بنجاح إلى الإدارة!');
+            e.target.reset();
         });
+
         document.getElementById('trip-form').addEventListener('submit', (e) => {
             e.preventDefault();
+            const title = document.getElementById('trip-title').value;
+            const desc = document.getElementById('trip-desc').value;
+            saveNewProposal('رحلة استكشافية', title, desc);
             closeModal('trip-modal');
             showToast('تم إرسال مقترح الرحلة بنجاح إلى الإدارة!');
+            e.target.reset();
         });
+
         function handleReq(id, action) {
-            const row = document.getElementById(id);
-            row.style.opacity = '0.5';
-            row.style.pointerEvents = 'none';
-            const badge = row.querySelector('.badge-pending');
-            badge.textContent = action === 'approve' ? 'تم القبول' : 'مرفوض';
-            badge.style.backgroundColor = action === 'approve' ? '#d1fae5' : '#fee2e2';
-            badge.style.color = action === 'approve' ? '#059669' : '#dc2626';
+            let proposals = JSON.parse(localStorage.getItem('sahara_proposals')) || [];
+            proposals = proposals.map(p => {
+                if (p.id === id) {
+                    p.status = action === 'approve' ? 'approved' : 'rejected';
+                }
+                return p;
+            });
+            localStorage.setItem('sahara_proposals', JSON.stringify(proposals));
+            renderDashboardData();
             showToast(action === 'approve' ? 'تم قبول المقترح وإدراجه في المنصة بنجاح' : 'تم رفض المقترح', action === 'approve' ? 'success' : 'error');
         }
+
+        document.addEventListener('DOMContentLoaded', () => {
+            renderDashboardData();
+        });
     </script>
 </body>
 </html>
