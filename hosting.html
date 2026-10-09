@@ -3,17 +3,17 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>الاستضافة - Sahara UniLinks</title>
+    <title>الاستضافة - SaharaVerse</title>
     <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
 
     <nav class="navbar">
-        <div class="logo">Sahara <span>UniLinks</span></div>
-        <ul class="nav-links">
-            <li><a href="index.html">الرئيسية / حسابي</a></li>
-            <li><a href="trips.html">الرحلات</a></li>
+        <a href="index.html" class="logo">Sahara<span>Verse</span></a>
+        <ul class="nav-links" id="dynamic-nav-links">
+            <li><a href="index.html">الرئيسية / الفضاء</a></li>
+            <li><a href="trips.html">السياحة العلمية</a></li>
             <li><a href="events.html">الفعاليات</a></li>
             <li><a href="hosting.html" class="active">الاستضافة</a></li>
         </ul>
@@ -21,18 +21,18 @@
     </nav>
 
     <section class="dashboard-container">
-        <h2 style="text-align: center; color: var(--dark-blue); font-size: 2.5rem; margin-bottom: 40px;">الاستضافة الطلابية المتبادلة</h2>
+        <h2 style="text-align: center; color: var(--dark-blue); font-size: 2.2rem; margin-bottom: 40px;">برنامج الاستضافة الطلابية المتبادلة</h2>
         
         <div class="features-grid">
             <div class="feature-card">
-                <h3 style="color: var(--primary-blue);">أحمد - طالب ماستر (الداخلة)</h3>
-                <p style="margin: 15px 0;">يمكنني استضافة طالبين في شقتي.</p>
-                <button onclick="contactHost()" class="btn-primary">تواصل مع المضيف</button>
+                <h3 style="color: var(--primary-blue);">أحمد - طالب باحث (الداخلة)</h3>
+                <p style="margin: 15px 0;">يمكنني استضافة طالبين في شقتي لتيسير البحث الميداني.</p>
+                <button onclick="contactHost()" class="btn-primary">طلب تواصل</button>
             </div>
             <div class="feature-card">
-                <h3 style="color: var(--primary-blue);">كن مضيفاً</h3>
-                <p style="margin: 15px 0;">استضف زملاءك وساهم في تقليل التكاليف.</p>
-                <button onclick="showToast('تم رفع طلبك كـ مضيف. سيتم التواصل معك قريباً.')" class="btn-secondary">تقديم طلب استضافة</button>
+                <h3 style="color: var(--primary-blue);">كن مضيفاً بالجنوب</h3>
+                <p style="margin: 15px 0;">استضف زملائك الباحثين وساهم في تقليل تكاليف سكنهم.</p>
+                <button onclick="showToast('تم إرسال رغبتك في الاستضافة كشريك! سنقوم بالتنسيق معك.')" class="btn-secondary">تقديم كمستضيف</button>
             </div>
         </div>
     </section>
@@ -41,24 +41,24 @@
     <div class="modal-overlay" id="contact-modal">
         <div class="modal">
             <div class="modal-header">
-                <h3>تواصل مع المضيف</h3>
+                <h3>طلب تواصل مع المستضيف</h3>
                 <button class="modal-close" onclick="closeModal()">✕</button>
             </div>
             <div class="modal-body">
-                <textarea rows="4" placeholder="اكتب رسالتك لترتيب تفاصيل الاستضافة..." style="width:100%; padding:10px; margin-bottom:20px; font-family:inherit; border:1px solid #cbd5e1; border-radius:8px;"></textarea>
+                <textarea rows="4" placeholder="اكتب رسالتك لترتيب تفاصيل الاستضافة والبحث الميداني..." style="width:100%; padding:10px; margin-bottom:20px; font-family:inherit; border:1px solid #cbd5e1; border-radius:8px;"></textarea>
                 <button onclick="sendMessage()" class="btn-primary" style="width: 100%;">إرسال</button>
             </div>
         </div>
     </div>
 
-    <footer><div class="container footer-bottom" style="border:none;"><p>© 2026 Sahara UniLinks</p></div></footer>
+    <footer><div class="container footer-bottom" style="border:none;"><p>© 2026 SaharaVerse</p></div></footer>
     <script src="app.js"></script>
     <script>
         function contactHost() { document.getElementById('contact-modal').classList.add('open'); }
         function closeModal() { document.getElementById('contact-modal').classList.remove('open'); }
         function sendMessage() {
             closeModal();
-            showToast('تم إرسال رسالتك للمضيف بنجاح! ✉️');
+            showToast('تم إرسال رسالتك إلى المستضيف بنجاح! ✉️');
         }
     </script>
 </body>
