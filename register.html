@@ -4,96 +4,61 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>البوابة الآمنة - SaharaVerse</title>
+    <link rel="manifest" href="manifest.json">
     <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="styles.css">
-    <style>
-        .auth-container { max-width: 500px; margin: 60px auto; background: white; padding: 40px; border-radius: 15px; box-shadow: 0 10px 30px rgba(0,0,0,0.05); }
-        .auth-tabs { display: flex; margin-bottom: 30px; border-bottom: 2px solid #e2e8f0; }
-        .tab-btn { flex: 1; text-align: center; padding: 15px; font-weight: bold; cursor: pointer; color: var(--text-light); transition: all 0.3s; }
-        .tab-btn.active { color: var(--primary-blue); border-bottom: 3px solid var(--primary-blue); margin-bottom: -2px; }
-        .auth-form { display: none; animation: fadeInUp 0.4s ease; }
-        .auth-form.active { display: block; }
-        .security-badge { text-align: center; margin-bottom: 25px; padding: 15px; background-color: #f0fdf4; border: 1px solid #bbf7d0; border-radius: 8px; color: #166534; font-size: 0.9rem; }
-        .checkbox-group { display: flex; align-items: flex-start; gap: 10px; margin-bottom: 20px; font-size: 0.85rem; color: var(--text-light); text-align: right; }
-        .checkbox-group input { margin-top: 4px; cursor: pointer; }
-        .checkbox-group a { color: var(--primary-blue); text-decoration: underline; }
-    </style>
 </head>
 <body>
 
     <nav class="navbar">
         <a href="index.html" class="logo">Sahara<span>Verse</span></a>
         <ul class="nav-links">
-            <li><a href="index.html">الرئيسية</a></li>
+            <li><a href="index.html" data-i18n="nav_home">الرئيسية</a></li>
+            <li><button class="settings-btn" onclick="openModal('settings-modal')" title="الإعدادات">⚙️</button></li>
         </ul>
     </nav>
 
     <div class="auth-container">
-        <div class="security-badge">
+        <div class="security-badge" data-i18n="auth_secure">
             🔒 <strong>بوابة آمنة:</strong> الوصول مقيد للطلبة والباحثين. يرجى استخدام بريدك الجامعي أو الوطني (.ma).
         </div>
 
         <div class="auth-tabs">
-            <div class="tab-btn active" onclick="switchAuth('login', this)">تسجيل الدخول</div>
-            <div class="tab-btn" onclick="switchAuth('register', this)">حساب جديد</div>
+            <div class="tab-btn active" onclick="switchAuth('login', this)" data-i18n="auth_login_tab">تسجيل الدخول</div>
+            <div class="tab-btn" onclick="switchAuth('register', this)" data-i18n="auth_reg_tab">حساب جديد</div>
         </div>
 
-        <!-- نموذج تسجيل الدخول -->
         <form id="login-form" class="auth-form active">
-            <div class="form-group">
-                <label>البريد الإلكتروني</label>
-                <input type="email" id="login-email" placeholder="student@uca.ma" required>
-            </div>
-            <div class="form-group">
-                <label>كلمة المرور المشفرة</label>
-                <input type="password" id="login-pass" required>
-            </div>
-            <button type="submit" class="btn-primary" style="width: 100%; cursor: pointer;">دخول آمن</button>
+            <div class="form-group"><label data-i18n="auth_email">البريد الإلكتروني</label><input type="email" id="login-email" required></div>
+            <div class="form-group"><label data-i18n="auth_pass">كلمة المرور المشفرة</label><input type="password" id="login-pass" required></div>
+            <button type="submit" class="btn-primary" style="width: 100%;" data-i18n="auth_btn_login">دخول آمن</button>
         </form>
 
-        <!-- نموذج إنشاء حساب -->
         <form id="register-form" class="auth-form">
-            <div class="form-group">
-                <label>الاسم الكامل أو النادي الطلابي</label>
-                <input type="text" id="reg-name" placeholder="الاسم الكامل" required>
-            </div>
-            <div class="form-group">
-                <label>البريد الإلكتروني (يجب أن ينتهي بـ .ma)</label>
-                <input type="email" id="reg-email" placeholder="example@uca.ma" required>
-            </div>
-            <div class="form-group">
-                <label>كلمة المرور (8 أحرف، أرقام وحروف)</label>
-                <input type="password" id="reg-pass" placeholder="********" required>
-            </div>
-            
+            <div class="form-group"><label data-i18n="auth_name">الاسم الكامل</label><input type="text" id="reg-name" required></div>
+            <div class="form-group"><label data-i18n="auth_email">البريد الإلكتروني (.ma)</label><input type="email" id="reg-email" required></div>
+            <div class="form-group"><label data-i18n="auth_pass">كلمة المرور (8 أحرف)</label><input type="password" id="reg-pass" required></div>
             <div class="checkbox-group">
                 <input type="checkbox" id="privacy-consent" required>
-                <label for="privacy-consent">
-                    أوافق صراحةً على <a href="#">سياسة الخصوصية</a> وأصرح بموافقتي على معالجة معطياتي وفقاً <strong>للقانون المغربي 09-08</strong> لحماية المعطيات (CNDP).
-                </label>
+                <label for="privacy-consent" data-i18n="auth_agree">أوافق صراحةً على سياسة الخصوصية وفقاً للقانون المغربي 09-08.</label>
             </div>
-
-            <button type="submit" class="btn-primary" style="width: 100%; cursor: pointer;">إنشاء حساب مشفر</button>
+            <button type="submit" class="btn-primary" style="width: 100%;" data-i18n="auth_btn_reg">إنشاء حساب مشفر</button>
         </form>
     </div>
 
-    <footer>
-      <div class="container footer-bottom" style="border:none;">
-        <p>© 2026 SaharaVerse - جميع البيانات محمية ومشفرة</p>
-      </div>
-    </footer>
+    <div class="modal-overlay" id="settings-modal"><div class="modal"><div class="modal-header"><h3 data-i18n="settings_title">⚙️ الإعدادات</h3><button class="modal-close" onclick="closeModal('settings-modal')">✕</button></div><div class="modal-body"><div class="form-group"><label data-i18n="settings_lang">لغة المنصة</label><select id="lang-selector" onchange="changeLanguage(this.value)"><option value="ar">العربية (Arabic)</option><option value="fr">Français (French)</option><option value="en">English (English)</option></select></div></div></div></div>
+
+    <footer><div class="container footer-bottom" style="border:none;"><p>© 2026 SaharaVerse</p></div></footer>
 
     <script src="app.js"></script>
     <script>
-        const ADMIN_EMAIL = 'admin@sahara.ma';
-        const ADMIN_PASS = 'Admin2026';
+        const ADMIN_EMAIL = 'admin@sahara.ma'; const ADMIN_PASS = 'Admin2026';
         let usersDB = JSON.parse(localStorage.getItem('sahara_users_db')) || [];
 
         function switchAuth(type, btn) {
             document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
             document.querySelectorAll('.auth-form').forEach(f => f.classList.remove('active'));
-            btn.classList.add('active');
-            document.getElementById(type + '-form').classList.add('active');
+            btn.classList.add('active'); document.getElementById(type + '-form').classList.add('active');
         }
 
         document.getElementById('register-form').addEventListener('submit', (e) => {
@@ -102,29 +67,13 @@
             const email = document.getElementById('reg-email').value.trim();
             const password = document.getElementById('reg-pass').value;
 
-            if (!email.toLowerCase().endsWith('.ma')) {
-                showToast('عذراً! التسجيل متاح فقط للحسابات الجامعية التي تنتهي بـ .ma', 'error');
-                return;
-            }
-
-            const passwordRegex = /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$/;
-            if (!passwordRegex.test(password)) {
-                showToast('كلمة المرور ضعيفة: يجب أن لا تقل عن 8 أحرف وتتضمن حروفاً وأرقاماً.', 'error');
-                return;
-            }
-
-            if (usersDB.some(user => user.email === email)) {
-                showToast('هذا البريد الإلكتروني مسجل لدينا بالفعل!', 'error');
-                return;
-            }
+            if (!email.toLowerCase().endsWith('.ma')) { showToast('عذراً! التسجيل متاح فقط للنطاقات .ma', 'error'); return; }
+            if (usersDB.some(user => user.email === email)) { showToast('البريد مسجل مسبقاً!', 'error'); return; }
 
             usersDB.push({ name: name, email: email, password: password, role: 'student' });
             localStorage.setItem('sahara_users_db', JSON.stringify(usersDB));
-            localStorage.setItem('sahara_role', 'student');
-            localStorage.setItem('sahara_current_user', name);
-            
-            showToast('تم إنشاء الحساب بنجاح! جاري توجيهك لفضاء الطالب...');
-            setTimeout(() => window.location.href = 'index.html', 1500);
+            localStorage.setItem('sahara_role', 'student'); localStorage.setItem('sahara_current_user', name);
+            window.location.href = 'index.html';
         });
 
         document.getElementById('login-form').addEventListener('submit', (e) => {
@@ -133,23 +82,16 @@
             const password = document.getElementById('login-pass').value;
             
             if(email === ADMIN_EMAIL && password === ADMIN_PASS) {
-                localStorage.setItem('sahara_role', 'admin');
-                localStorage.setItem('sahara_current_user', 'الإدارة المركزية');
-                showToast('مرحباً بك، الاتصال بلوحة الإدارة مشفر وآمن');
-                setTimeout(() => window.location.href = 'index.html', 1500);
-                return;
+                localStorage.setItem('sahara_role', 'admin'); localStorage.setItem('sahara_current_user', 'الإدارة المركزية');
+                window.location.href = 'index.html'; return;
             } 
-            
             const user = usersDB.find(u => u.email === email && u.password === password);
             if (user) {
-                localStorage.setItem('sahara_role', 'student');
-                localStorage.setItem('sahara_current_user', user.name);
-                showToast(`مرحباً بك مجدداً ${user.name}، تسجيل دخول ناجح.`);
-                setTimeout(() => window.location.href = 'index.html', 1500);
-            } else {
-                showToast('خطأ في بيانات الدخول! البريد أو كلمة المرور غير صحيحة.', 'error');
-            }
+                localStorage.setItem('sahara_role', 'student'); localStorage.setItem('sahara_current_user', user.name);
+                window.location.href = 'index.html';
+            } else { showToast('بيانات الدخول خاطئة', 'error'); }
         });
+        if ('serviceWorker' in navigator) { window.addEventListener('load', () => navigator.serviceWorker.register('sw.js')); }
     </script>
 </body>
 </html>
