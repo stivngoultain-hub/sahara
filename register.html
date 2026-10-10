@@ -4,16 +4,36 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>البوابة الآمنة - SaharaVerse</title>
+    <!-- أيقونة المتصفح -->
+    <link rel="icon" href="icon-192.png" type="image/png">
     <link rel="manifest" href="manifest.json">
     <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="styles.css">
+    
+    <!-- أكواد التصميم التي كانت مفقودة وتم استرجاعها لإصلاح الخلل الكارثي -->
+    <style>
+        .auth-container { max-width: 500px; margin: 60px auto; background: white; padding: 40px; border-radius: 15px; box-shadow: 0 10px 30px rgba(0,0,0,0.05); }
+        .auth-tabs { display: flex; margin-bottom: 30px; border-bottom: 2px solid #e2e8f0; }
+        .tab-btn { flex: 1; text-align: center; padding: 15px; font-weight: bold; cursor: pointer; color: var(--text-light); transition: all 0.3s; }
+        .tab-btn.active { color: var(--primary-blue); border-bottom: 3px solid var(--primary-blue); margin-bottom: -2px; }
+        .auth-form { display: none; animation: fadeInUp 0.4s ease; }
+        .auth-form.active { display: block; }
+        .security-badge { text-align: center; margin-bottom: 25px; padding: 15px; background-color: #f0fdf4; border: 1px solid #bbf7d0; border-radius: 8px; color: #166534; font-size: 0.9rem; }
+        .checkbox-group { display: flex; align-items: flex-start; gap: 10px; margin-bottom: 20px; font-size: 0.85rem; color: var(--text-light); text-align: right; }
+        .checkbox-group input { margin-top: 4px; cursor: pointer; }
+        .checkbox-group a { color: var(--primary-blue); text-decoration: underline; }
+    </style>
 </head>
 <body>
 
     <nav class="navbar">
-        <a href="index.html" class="logo">Sahara<span>Verse</span></a>
+        <a href="index.html" class="logo">
+            <img src="icon-192.png" alt="SaharaVerse Logo" style="height: 35px; width: auto;" onerror="this.style.display='none'">
+            Sahara<span>Verse</span>
+        </a>
         <ul class="nav-links">
             <li><a href="index.html" data-i18n="nav_home">الرئيسية</a></li>
+            <!-- زر الإعدادات -->
             <li><button class="settings-btn" onclick="openModal('settings-modal')" title="الإعدادات">⚙️</button></li>
         </ul>
     </nav>
@@ -46,7 +66,25 @@
         </form>
     </div>
 
-    <div class="modal-overlay" id="settings-modal"><div class="modal"><div class="modal-header"><h3 data-i18n="settings_title">⚙️ الإعدادات</h3><button class="modal-close" onclick="closeModal('settings-modal')">✕</button></div><div class="modal-body"><div class="form-group"><label data-i18n="settings_lang">لغة المنصة</label><select id="lang-selector" onchange="changeLanguage(this.value)"><option value="ar">العربية (Arabic)</option><option value="fr">Français (French)</option><option value="en">English (English)</option></select></div></div></div></div>
+    <!-- نافذة الإعدادات -->
+    <div class="modal-overlay" id="settings-modal">
+        <div class="modal">
+            <div class="modal-header">
+                <h3 data-i18n="settings_title">⚙️ الإعدادات</h3>
+                <button class="modal-close" onclick="closeModal('settings-modal')">✕</button>
+            </div>
+            <div class="modal-body">
+                <div class="form-group">
+                    <label data-i18n="settings_lang">لغة المنصة</label>
+                    <select id="lang-selector" onchange="changeLanguage(this.value)">
+                        <option value="ar">العربية (Arabic)</option>
+                        <option value="fr">Français (French)</option>
+                        <option value="en">English (English)</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+    </div>
 
     <footer><div class="container footer-bottom" style="border:none;"><p>© 2026 SaharaVerse</p></div></footer>
 
@@ -91,6 +129,7 @@
                 window.location.href = 'index.html';
             } else { showToast('بيانات الدخول خاطئة', 'error'); }
         });
+        
         if ('serviceWorker' in navigator) { window.addEventListener('load', () => navigator.serviceWorker.register('sw.js')); }
     </script>
 </body>
