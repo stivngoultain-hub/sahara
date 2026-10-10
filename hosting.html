@@ -4,62 +4,34 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>الاستضافة - SaharaVerse</title>
+    <link rel="manifest" href="manifest.json">
     <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-
     <nav class="navbar">
         <a href="index.html" class="logo">Sahara<span>Verse</span></a>
         <ul class="nav-links" id="dynamic-nav-links">
-            <li><a href="index.html">الرئيسية / الفضاء</a></li>
-            <li><a href="trips.html">السياحة العلمية</a></li>
-            <li><a href="events.html">الفعاليات</a></li>
-            <li><a href="hosting.html" class="active">الاستضافة</a></li>
+            <li><a href="index.html" data-i18n="nav_home">الرئيسية / الفضاء</a></li>
+            <li><a href="trips.html" data-i18n="nav_trips">السياحة العلمية</a></li>
+            <li><a href="events.html" data-i18n="nav_events">الفعاليات</a></li>
+            <li><a href="hosting.html" class="active" data-i18n="nav_hosting">الاستضافة</a></li>
+            <li><button class="settings-btn" onclick="openModal('settings-modal')" title="الإعدادات">⚙️</button></li>
         </ul>
-        <a href="register.html" class="btn-nav">الدخول / التسجيل</a>
+        <button id="auth-btn" class="btn-nav" onclick="window.location.href='register.html'" data-i18n="nav_login">الدخول / التسجيل</button>
     </nav>
 
     <section class="dashboard-container">
-        <h2 style="text-align: center; color: var(--dark-blue); font-size: 2.2rem; margin-bottom: 40px;">برنامج الاستضافة الطلابية المتبادلة</h2>
-        
+        <h2 style="text-align: center; color: var(--dark-blue); font-size: 2.2rem; margin-bottom: 40px;" data-i18n="hosting_title">برنامج الاستضافة الطلابية</h2>
         <div class="features-grid">
-            <div class="feature-card">
-                <h3 style="color: var(--primary-blue);">أحمد - طالب باحث (الداخلة)</h3>
-                <p style="margin: 15px 0;">يمكنني استضافة طالبين في شقتي لتيسير البحث الميداني.</p>
-                <button onclick="contactHost()" class="btn-primary">طلب تواصل</button>
-            </div>
-            <div class="feature-card">
-                <h3 style="color: var(--primary-blue);">كن مضيفاً بالجنوب</h3>
-                <p style="margin: 15px 0;">استضف زملائك الباحثين وساهم في تقليل تكاليف سكنهم.</p>
-                <button onclick="showToast('تم إرسال رغبتك في الاستضافة كشريك! سنقوم بالتنسيق معك.')" class="btn-secondary">تقديم كمستضيف</button>
-            </div>
+            <div class="feature-card"><h3 style="color: var(--primary-blue);" data-i18n="host1_title">محمد - طالب بالـ ENCG</h3><p style="margin: 15px 0;" data-i18n="host1_desc">استضافة باحث في الداخلة.</p><button onclick="applyOpportunity('')" class="btn-primary" data-i18n="btn_contact">طلب تواصل آمن</button></div>
+            <div class="feature-card"><h3 style="color: var(--primary-blue);" data-i18n="host2_title">فاطمة الزهراء - جامعة ابن زهر</h3><p style="margin: 15px 0;" data-i18n="host2_desc">استضافة طالبة.</p><button onclick="applyOpportunity('')" class="btn-primary" data-i18n="btn_contact">طلب تواصل آمن</button></div>
         </div>
     </section>
 
-    <!-- نافذة المراسلة -->
-    <div class="modal-overlay" id="contact-modal">
-        <div class="modal">
-            <div class="modal-header">
-                <h3>طلب تواصل مع المستضيف</h3>
-                <button class="modal-close" onclick="closeModal()">✕</button>
-            </div>
-            <div class="modal-body">
-                <textarea rows="4" placeholder="اكتب رسالتك لترتيب تفاصيل الاستضافة والبحث الميداني..." style="width:100%; padding:10px; margin-bottom:20px; font-family:inherit; border:1px solid #cbd5e1; border-radius:8px;"></textarea>
-                <button onclick="sendMessage()" class="btn-primary" style="width: 100%;">إرسال</button>
-            </div>
-        </div>
-    </div>
-
+    <div class="modal-overlay" id="settings-modal"><div class="modal"><div class="modal-header"><h3 data-i18n="settings_title">⚙️ الإعدادات</h3><button class="modal-close" onclick="closeModal('settings-modal')">✕</button></div><div class="modal-body"><div class="form-group"><label data-i18n="settings_lang">لغة المنصة</label><select id="lang-selector" onchange="changeLanguage(this.value)"><option value="ar">العربية (Arabic)</option><option value="fr">Français (French)</option><option value="en">English (English)</option></select></div><button onclick="logout()" class="btn-primary" style="width: 100%; background-color: #ef4444;" data-i18n="settings_logout">تسجيل الخروج</button></div></div></div>
     <footer><div class="container footer-bottom" style="border:none;"><p>© 2026 SaharaVerse</p></div></footer>
     <script src="app.js"></script>
-    <script>
-        function contactHost() { document.getElementById('contact-modal').classList.add('open'); }
-        function closeModal() { document.getElementById('contact-modal').classList.remove('open'); }
-        function sendMessage() {
-            closeModal();
-            showToast('تم إرسال رسالتك إلى المستضيف بنجاح! ✉️');
-        }
-    </script>
+    <script>if ('serviceWorker' in navigator) { window.addEventListener('load', () => navigator.serviceWorker.register('sw.js')); }</script>
 </body>
 </html>
