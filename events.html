@@ -4,62 +4,34 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>الفعاليات - SaharaVerse</title>
+    <link rel="manifest" href="manifest.json">
     <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-
     <nav class="navbar">
         <a href="index.html" class="logo">Sahara<span>Verse</span></a>
         <ul class="nav-links" id="dynamic-nav-links">
-            <li><a href="index.html">الرئيسية / الفضاء</a></li>
-            <li><a href="trips.html">السياحة العلمية</a></li>
-            <li><a href="events.html" class="active">الفعاليات</a></li>
-            <li><a href="hosting.html">الاستضافة</a></li>
+            <li><a href="index.html" data-i18n="nav_home">الرئيسية / الفضاء</a></li>
+            <li><a href="trips.html" data-i18n="nav_trips">السياحة العلمية</a></li>
+            <li><a href="events.html" class="active" data-i18n="nav_events">الفعاليات</a></li>
+            <li><a href="hosting.html" data-i18n="nav_hosting">الاستضافة</a></li>
+            <li><button class="settings-btn" onclick="openModal('settings-modal')" title="الإعدادات">⚙️</button></li>
         </ul>
-        <a href="register.html" class="btn-nav">الدخول / التسجيل</a>
+        <button id="auth-btn" class="btn-nav" onclick="window.location.href='register.html'" data-i18n="nav_login">الدخول / التسجيل</button>
     </nav>
 
     <section class="dashboard-container">
-        <h2 style="text-align: center; color: var(--dark-blue); font-size: 2.2rem; margin-bottom: 40px;">الفعاليات والندوات الأكاديمية</h2>
-        
+        <h2 style="text-align: center; color: var(--dark-blue); font-size: 2.2rem; margin-bottom: 40px;" data-i18n="events_title">الفعاليات والندوات الأكاديمية</h2>
         <div class="features-grid">
-            <div class="feature-card">
-                <h3 style="color: var(--primary-blue);">ندوة: التدبير الترابي والتنمية بالجنوب</h3>
-                <p style="margin: 15px 0;">مناقشة آليات الجهوية المتقدمة والإدارة العمومية الحديثة.</p>
-                <button onclick="registerEvent()" class="btn-primary">تسجيل حضور</button>
-            </div>
-            <div class="feature-card">
-                <h3 style="color: var(--primary-blue);">ورشة عمل: ريادة الأعمال المستدامة</h3>
-                <p style="margin: 15px 0;">تطوير المشاريع الناشئة في الاقتصاد البحري والطبيعي بالصحراء.</p>
-                <button onclick="registerEvent()" class="btn-primary">تسجيل حضور</button>
-            </div>
+            <div class="feature-card"><h3 style="color: var(--primary-blue);" data-i18n="event1_title">ندوة: تنزيل الجهوية المتقدمة</h3><p style="margin: 15px 0;" data-i18n="event1_desc">بشراكة مع ENCG.</p><button onclick="applyOpportunity('')" class="btn-primary" data-i18n="btn_apply">تسجيل الحضور</button></div>
+            <div class="feature-card"><h3 style="color: var(--primary-blue);" data-i18n="event2_title">ورشة: الاقتصاد الأزرق</h3><p style="margin: 15px 0;" data-i18n="event2_desc">محاضرة تطبيقية.</p><button onclick="applyOpportunity('')" class="btn-primary" data-i18n="btn_apply">تسجيل الحضور</button></div>
         </div>
     </section>
 
-    <!-- نافذة تسجيل الفعالية -->
-    <div class="modal-overlay" id="event-modal">
-        <div class="modal">
-            <div class="modal-header">
-                <h3>تأكيد تسجيل الحضور</h3>
-                <button class="modal-close" onclick="closeModal()">✕</button>
-            </div>
-            <div class="modal-body">
-                <p style="margin-bottom: 20px;">هل ترغب في تسجيل حضورك وتأكيد مقعدك في الفعالية؟</p>
-                <button onclick="confirmEvent()" class="btn-primary" style="width: 100%;">تأكيد</button>
-            </div>
-        </div>
-    </div>
-
+    <div class="modal-overlay" id="settings-modal"><div class="modal"><div class="modal-header"><h3 data-i18n="settings_title">⚙️ الإعدادات</h3><button class="modal-close" onclick="closeModal('settings-modal')">✕</button></div><div class="modal-body"><div class="form-group"><label data-i18n="settings_lang">لغة المنصة</label><select id="lang-selector" onchange="changeLanguage(this.value)"><option value="ar">العربية (Arabic)</option><option value="fr">Français (French)</option><option value="en">English (English)</option></select></div><button onclick="logout()" class="btn-primary" style="width: 100%; background-color: #ef4444;" data-i18n="settings_logout">تسجيل الخروج</button></div></div></div>
     <footer><div class="container footer-bottom" style="border:none;"><p>© 2026 SaharaVerse</p></div></footer>
     <script src="app.js"></script>
-    <script>
-        function registerEvent() { document.getElementById('event-modal').classList.add('open'); }
-        function closeModal() { document.getElementById('event-modal').classList.remove('open'); }
-        function confirmEvent() {
-            closeModal();
-            showToast('تم تسجيل حضورك في الفعالية بنجاح! 🎓');
-        }
-    </script>
+    <script>if ('serviceWorker' in navigator) { window.addEventListener('load', () => navigator.serviceWorker.register('sw.js')); }</script>
 </body>
 </html>
