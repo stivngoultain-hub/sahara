@@ -4,6 +4,9 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>SaharaVerse - منصة الابتكار والتبادل الطلابي</title>
+    <!-- ربط التطبيق بملف الهوية (PWA) -->
+    <link rel="manifest" href="manifest.json">
+    
     <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="styles.css">
     <style>
@@ -56,18 +59,17 @@
 
     <!-- واجهة الطالب -->
     <div id="student-view" style="display: none;" class="dashboard-container animate-fade-in-up">
-        <!-- بطاقة الشارات الرقمية -->
         <div class="badge-card">
             <div style="font-size: 2.5rem;">⭐</div>
             <div>
-                <h3 style="margin-bottom: 3px;">شارة: باحث نشيط في SaharaVerse</h3>
-                <p style="font-size: 0.9rem; opacity: 0.9;">لقد جمعت 120 نقطة تفاعلية. أنت مؤهل للأولوية في عروض التدريب المهني والرحلات!</p>
+                <h3 style="margin-bottom: 3px;">شارة: باحث مشارك في SaharaVerse</h3>
+                <p style="font-size: 0.9rem; opacity: 0.9;">لقد جمعت 150 نقطة. أنت مؤهل للتقدم لفرص التدريب بالوكالات الجهوية للاستثمار!</p>
             </div>
         </div>
 
         <div class="dashboard-header-box">
             <div>
-                <h2 style="color: var(--dark-blue); margin-bottom: 5px;">فضاء الابتكار والتسيير التشاركي</h2>
+                <h2 style="color: var(--dark-blue); margin-bottom: 5px;">مرحباً <span id="user-display-name"></span>، فضاء الابتكار المفتوح</h2>
                 <p style="color: var(--text-light); font-size: 0.95rem;">ساهم بحلولك في بنك التحديات أو اقترح أنشطة نوعية:</p>
             </div>
             <div style="display: flex; gap: 10px; flex-wrap: wrap;">
@@ -77,28 +79,22 @@
             </div>
         </div>
 
-        <!-- ركن فرصة -->
         <h3 style="color: var(--primary-blue); margin-bottom: 15px;">💼 ركن "فرصة": عروض التدريب والتشغيل المتاحة بالجنوب</h3>
         <div style="margin-bottom: 40px;">
             <div class="opportunity-card">
                 <div>
-                    <h4 style="color: var(--dark-blue); margin-bottom: 5px;">متدرب في الإدارة المالية والتدبير</h4>
-                    <p style="color: var(--text-light); font-size: 0.9rem;">المؤسسة: الميناء الأطلسي الداخلة | النوع: تدريب ميداني (Stage)</p>
+                    <h4 style="color: var(--dark-blue); margin-bottom: 5px;">متدرب في الإدارة المالية والتدبير العمومي (Stage PFE)</h4>
+                    <p style="color: var(--text-light); font-size: 0.9rem;">المؤسسة: الوكالة الجهوية لتنفيذ المشاريع (AREP) - الداخلة | المدة: 3 أشهر</p>
                 </div>
-                <button onclick="applyOpportunity('متدرب في الإدارة المالية - الداخلة')" class="btn-primary" style="padding: 8px 20px; font-size: 0.9rem; cursor: pointer;">تقدم للفرصة</button>
+                <button onclick="applyOpportunity('متدرب بـ AREP الداخلة')" class="btn-primary" style="padding: 8px 20px; font-size: 0.9rem; cursor: pointer;">تقدم للفرصة</button>
             </div>
             <div class="opportunity-card" style="border-right-color: var(--primary-blue);">
                 <div>
-                    <h4 style="color: var(--dark-blue); margin-bottom: 5px;">مساعد مشاريع الطاقات المتجددة</h4>
-                    <p style="color: var(--text-light); font-size: 0.9rem;">المؤسسة: الوكالة الجهوية للاستثمار بالعيون | النوع: عقد عمل / تدريب</p>
+                    <h4 style="color: var(--dark-blue); margin-bottom: 5px;">مساعد بحث ميداني في التنمية المستدامة</h4>
+                    <p style="color: var(--text-light); font-size: 0.9rem;">المؤسسة: مؤسسة فوسبوكراع (Phosboucraa) - العيون | النوع: تدريب مدفوع الأجر</p>
                 </div>
-                <button onclick="applyOpportunity('مساعد مشاريع - العيون')" class="btn-primary" style="background-color: var(--primary-blue); padding: 8px 20px; font-size: 0.9rem; cursor: pointer;">تقدم للفرصة</button>
+                <button onclick="applyOpportunity('مساعد بحث - مؤسسة فوسبوكراع')" class="btn-primary" style="background-color: var(--primary-blue); padding: 8px 20px; font-size: 0.9rem; cursor: pointer;">تقدم للفرصة</button>
             </div>
-        </div>
-
-        <h3 style="color: var(--primary-blue); margin-bottom: 20px;">مشاركاتي وأنشطتي المقدمة</h3>
-        <div class="features-grid" id="my-proposals-grid">
-            <p style="color: var(--text-light);">لم تقم بإضافة أي مقترحات بعد. شارك بفكرتك الأولى الآن!</p>
         </div>
     </div>
 
@@ -107,7 +103,7 @@
         <div class="dashboard-header-box">
             <div>
                 <h2 style="color: var(--dark-blue); margin-bottom: 5px;">لوحة تحكم الإدارة المركزية - SaharaVerse</h2>
-                <p style="color: var(--text-light); font-size: 0.95rem;">إدارة بنك الأفكار، مقترحات الرحلات، وعروض "فرصة" للتشغيل.</p>
+                <p style="color: var(--text-light); font-size: 0.95rem;">إدارة بنك الأفكار، مقترحات الرحلات، وعروض "فرصة".</p>
             </div>
             <span style="background: var(--dark-blue); color: var(--sahara-gold); padding: 8px 16px; border-radius: 8px; font-weight: bold; font-size: 0.9rem;">مسؤول النظام (Admin)</span>
         </div>
@@ -136,140 +132,61 @@
         </div>
     </div>
 
-    <!-- نافذة اقتراح ندوة -->
-    <div class="modal-overlay" id="seminar-modal">
-        <div class="modal">
-            <div class="modal-header">
-                <h3 style="color: var(--dark-blue);">اقترح ندوة أكاديمية</h3>
-                <button class="modal-close" onclick="closeModal('seminar-modal')">✕</button>
-            </div>
-            <div class="modal-body">
-                <form id="seminar-form">
-                    <div class="form-group"><label>عنوان الندوة</label><input type="text" id="sem-title" placeholder="مثال: آليات الإدارة والمالية العمومية" required></div>
-                    <div class="form-group"><label>المحاور المستهدفة</label><textarea id="sem-desc" rows="3" placeholder="أبرز النقاط..." required></textarea></div>
-                    <button type="submit" class="btn-primary" style="width: 100%; cursor: pointer;">إرسال للإدارة</button>
-                </form>
-            </div>
-        </div>
-    </div>
+    <!-- نوافذ منبثقة (Modals) -->
+    <div class="modal-overlay" id="seminar-modal"><div class="modal"><div class="modal-header"><h3 style="color: var(--dark-blue);">اقترح ندوة أكاديمية</h3><button class="modal-close" onclick="closeModal('seminar-modal')">✕</button></div><div class="modal-body"><form id="seminar-form"><div class="form-group"><label>عنوان الندوة</label><input type="text" id="sem-title" placeholder="مثال: تنزيل الجهوية المتقدمة بالجنوب" required></div><div class="form-group"><label>المحاور المستهدفة</label><textarea id="sem-desc" rows="3" required></textarea></div><button type="submit" class="btn-primary" style="width: 100%;">إرسال للإدارة</button></form></div></div></div>
+    
+    <div class="modal-overlay" id="challenge-modal"><div class="modal"><div class="modal-header"><h3 style="color: var(--dark-blue);">💡 حل تحدي ترابي أو فكرة ابتكارية</h3><button class="modal-close" onclick="closeModal('challenge-modal')">✕</button></div><div class="modal-body"><form id="challenge-form"><div class="form-group"><label>التحدي المستهدف</label><select id="chal-type"><option>تحدي الاقتصاد الأزرق وتثمين الثروة السمكية</option><option>تحدي تحلية مياه البحر بالطاقة المتجددة</option><option>تحدي الإدارة الرقمية الترابية</option></select></div><div class="form-group"><label>فكرتك أو حلك المقترح</label><textarea id="chal-desc" rows="3" required></textarea></div><button type="submit" class="btn-primary" style="width: 100%; background-color: var(--sahara-gold);">نشر الفكرة وكسب النقاط</button></form></div></div></div>
+    
+    <div class="modal-overlay" id="trip-modal"><div class="modal"><div class="modal-header"><h3 style="color: var(--dark-blue);">اقترح رحلة سياحة علمية</h3><button class="modal-close" onclick="closeModal('trip-modal')">✕</button></div><div class="modal-body"><form id="trip-form"><div class="form-group"><label>الوجهة (المدينة الصحراوية)</label><input type="text" id="trip-title" placeholder="مثال: الداخلة، العيون، طرفاية..." required></div><div class="form-group"><label>الهدف الأكاديمي والاستكشافي</label><textarea id="trip-desc" rows="3" required></textarea></div><button type="submit" class="btn-primary" style="width: 100%; background-color: #10b981%;">إرسال للإدارة</button></form></div></div></div>
 
-    <!-- نافذة مشاركة فكرة -->
-    <div class="modal-overlay" id="challenge-modal">
-        <div class="modal">
-            <div class="modal-header">
-                <h3 style="color: var(--dark-blue);">💡 حل تحدي ترابي أو فكرة ابتكارية</h3>
-                <button class="modal-close" onclick="closeModal('challenge-modal')">✕</button>
-            </div>
-            <div class="modal-body">
-                <form id="challenge-form">
-                    <div class="form-group"><label>التحدي المستهدف</label><select id="chal-type"><option>تحدي الاقتصاد الأزرق والبحري</option><option>تحدي الطاقات المتجددة والماء</option><option>تحدي الإدارة الرقمية الترابية</option></select></div>
-                    <div class="form-group"><label>فكرتك أو حلك المقترح</label><textarea id="chal-desc" rows="3" placeholder="اشرح فكرتك الإبداعية باختصار..." required></textarea></div>
-                    <button type="submit" class="btn-primary" style="width: 100%; background-color: var(--sahara-gold); cursor: pointer;">نشر الفكرة وكسب النقاط</button>
-                </form>
-            </div>
-        </div>
-    </div>
-
-    <!-- نافذة اقتراح رحلة -->
-    <div class="modal-overlay" id="trip-modal">
-        <div class="modal">
-            <div class="modal-header">
-                <h3 style="color: var(--dark-blue);">اقترح رحلة سياحة علمية</h3>
-                <button class="modal-close" onclick="closeModal('trip-modal')">✕</button>
-            </div>
-            <div class="modal-body">
-                <form id="trip-form">
-                    <div class="form-group"><label>الوجهة (المدينة الصحراوية)</label><input type="text" id="trip-title" placeholder="مثال: الداخلة، العيون..." required></div>
-                    <div class="form-group"><label>الهدف الأكاديمي والاستكشافي</label><textarea id="trip-desc" rows="3" placeholder="المشاريع المزمع زيارتها..." required></textarea></div>
-                    <button type="submit" class="btn-primary" style="width: 100%; background-color: #10b981; cursor: pointer;">إرسال للإدارة</button>
-                </form>
-            </div>
-        </div>
-    </div>
-
-    <footer>
-      <div class="container footer-bottom" style="border:none;">
-        <p>© 2026 SaharaVerse. مشروع مقدم لـ Moroccan Sahara Innovation Challenge</p>
-      </div>
-    </footer>
+    <footer><div class="container footer-bottom" style="border:none;"><p>© 2026 SaharaVerse. مشروع مقدم لـ Moroccan Sahara Innovation Challenge</p></div></footer>
 
     <script src="app.js"></script>
     <script>
         function openModal(id) { document.getElementById(id).classList.add('open'); }
         function closeModal(id) { document.getElementById(id).classList.remove('open'); }
-
-        function applyOpportunity(title) {
-            showToast('تم إرسال ترشيحك لفرصة "' + title + '" بنجاح! بالتوفيق 🚀', 'success');
-        }
+        function applyOpportunity(title) { showToast('تم إرسال ملفك الأكاديمي للترشح لفرصة "' + title + '" بنجاح! 🚀', 'success'); }
 
         document.addEventListener('DOMContentLoaded', () => {
             const role = localStorage.getItem('sahara_role');
-            const navLinks = document.getElementById('dynamic-nav-links');
-            const guestView = document.getElementById('guest-view');
-            const studentView = document.getElementById('student-view');
-            const adminView = document.getElementById('admin-view');
-
-            if (role) {
-                if (navLinks) navLinks.style.display = 'flex';
-                if (role === 'admin') {
-                    if (guestView) guestView.style.display = 'none';
-                    if (studentView) studentView.style.display = 'none';
-                    if (adminView) adminView.style.display = 'block';
-                } else {
-                    if (guestView) guestView.style.display = 'none';
-                    if (adminView) adminView.style.display = 'none';
-                    if (studentView) studentView.style.display = 'block';
-                }
-            } else {
-                if (navLinks) navLinks.style.display = 'none';
-                if (guestView) guestView.style.display = 'block';
-                if (studentView) studentView.style.display = 'none';
-                if (adminView) adminView.style.display = 'none';
+            const currentUser = localStorage.getItem('sahara_current_user') || 'طالب';
+            
+            document.getElementById('dynamic-nav-links').style.display = role ? 'flex' : 'none';
+            document.getElementById('guest-view').style.display = role ? 'none' : 'block';
+            document.getElementById('student-view').style.display = role === 'student' ? 'block' : 'none';
+            document.getElementById('admin-view').style.display = role === 'admin' ? 'block' : 'none';
+            
+            if(role === 'student' && document.getElementById('user-display-name')) {
+                document.getElementById('user-display-name').textContent = currentUser;
             }
+
             renderDashboardData();
         });
 
         if (!localStorage.getItem('sahara_proposals')) {
-            localStorage.setItem('sahara_proposals', JSON.stringify([]));
-        }
-        if (!localStorage.getItem('sahara_students_count')) {
-            localStorage.setItem('sahara_students_count', '0');
+            localStorage.setItem('sahara_proposals', JSON.stringify([
+                { id: 'req-1', author: 'طالب ماستر - القاضي عياض', type: 'ندوة أكاديمية', details: 'تنزيل الجهوية المتقدمة', status: 'pending' },
+                { id: 'req-2', author: 'نادي الابتكار', type: 'تحدي ترابي', details: 'تتبع توزيع المياه المحلاة بالداخلة', status: 'pending' }
+            ]));
         }
 
         function renderDashboardData() {
             const proposals = JSON.parse(localStorage.getItem('sahara_proposals')) || [];
-            const studentCount = localStorage.getItem('sahara_students_count') || '0';
+            const usersList = JSON.parse(localStorage.getItem('sahara_users_db')) || [];
             
-            const statStudents = document.getElementById('stat-students');
-            const statPending = document.getElementById('stat-pending');
-            if (statStudents) statStudents.textContent = studentCount;
-            const pendingCount = proposals.filter(p => p.status === 'pending').length;
-            if (statPending) statPending.textContent = pendingCount;
+            if (document.getElementById('stat-students')) document.getElementById('stat-students').textContent = (342 + usersList.length);
+            if (document.getElementById('stat-pending')) document.getElementById('stat-pending').textContent = proposals.filter(p => p.status === 'pending').length;
 
             const tbody = document.getElementById('admin-table-body');
             if (tbody) {
                 tbody.innerHTML = '';
                 if (proposals.length === 0) {
-                    tbody.innerHTML = '<tr><td colspan="5" style="text-align:center; color:var(--text-light);">لا توجد مقترحات أو تحديات معلقة حالياً</td></tr>';
+                    tbody.innerHTML = '<tr><td colspan="5" style="text-align:center; color:var(--text-light);">لا توجد مقترحات معلقة</td></tr>';
                 } else {
                     proposals.forEach(p => {
-                        let statusHtml = p.status === 'pending' ? '<span class="badge-pending">معلق</span>' : 
-                                         (p.status === 'approved' ? '<span style="color:#059669; font-weight:bold;">تم القبول</span>' : '<span style="color:#dc2626; font-weight:bold;">مرفوض</span>');
-                        
-                        let actionsHtml = p.status === 'pending' ? `
-                            <div class="action-btns">
-                                <button class="btn-action-accept" onclick="handleReq('${p.id}', 'approve')">قبول</button>
-                                <button class="btn-action-reject" onclick="handleReq('${p.id}', 'reject')">رفض</button>
-                            </div>` : 'تم البت في الطلب';
-
-                        tbody.innerHTML += `
-                            <tr id="${p.id}">
-                                <td style="font-weight: 500;">${p.author}</td>
-                                <td>${p.type}</td>
-                                <td>${p.details}</td>
-                                <td>${statusHtml}</td>
-                                <td>${actionsHtml}</td>
-                            </tr>`;
+                        let statusHtml = p.status === 'pending' ? '<span class="badge-pending">معلق</span>' : (p.status === 'approved' ? '<span style="color:#059669; font-weight:bold;">تم القبول</span>' : '<span style="color:#dc2626; font-weight:bold;">مرفوض</span>');
+                        let actionsHtml = p.status === 'pending' ? `<div class="action-btns"><button class="btn-action-accept" onclick="handleReq('${p.id}', 'approve')">قبول</button><button class="btn-action-reject" onclick="handleReq('${p.id}', 'reject')">رفض</button></div>` : 'تم البت';
+                        tbody.innerHTML += `<tr><td style="font-weight: 500;">${p.author}</td><td>${p.type}</td><td>${p.details}</td><td>${statusHtml}</td><td>${actionsHtml}</td></tr>`;
                     });
                 }
             }
@@ -277,45 +194,37 @@
 
         function saveNewProposal(type, title, desc) {
             let proposals = JSON.parse(localStorage.getItem('sahara_proposals')) || [];
-            const newId = 'req-' + Date.now();
-            proposals.push({ id: newId, author: 'عبد الله (طالب مسجل)', type: type, details: title + ' - ' + desc, status: 'pending' });
+            const userName = localStorage.getItem('sahara_current_user') || 'طالب مسجل';
+            proposals.push({ id: 'req-' + Date.now(), author: userName, type: type, details: title + ' - ' + desc, status: 'pending' });
             localStorage.setItem('sahara_proposals', JSON.stringify(proposals));
             renderDashboardData();
         }
 
-        document.getElementById('seminar-form').addEventListener('submit', (e) => {
-            e.preventDefault();
-            saveNewProposal('ندوة أكاديمية', document.getElementById('sem-title').value, document.getElementById('sem-desc').value);
-            closeModal('seminar-modal');
-            showToast('تم إرسال مقترح الندوة بنجاح!');
-            e.target.reset();
-        });
-
-        document.getElementById('challenge-form').addEventListener('submit', (e) => {
-            e.preventDefault();
-            saveNewProposal('فكرة تحدي ترابي', document.getElementById('chal-type').value, document.getElementById('chal-desc').value);
-            closeModal('challenge-modal');
-            showToast('تم نشر فكرتك بنجاح وكسبت نقاط الشارة! 💡');
-            e.target.reset();
-        });
-
-        document.getElementById('trip-form').addEventListener('submit', (e) => {
-            e.preventDefault();
-            saveNewProposal('رحلة علمية', document.getElementById('trip-title').value, document.getElementById('trip-desc').value);
-            closeModal('trip-modal');
-            showToast('تم إرسال مقترح الرحلة العلمية بنجاح!');
-            e.target.reset();
-        });
+        document.getElementById('seminar-form').addEventListener('submit', (e) => { e.preventDefault(); saveNewProposal('ندوة أكاديمية', document.getElementById('sem-title').value, document.getElementById('sem-desc').value); closeModal('seminar-modal'); showToast('تم إرسال المقترح بنجاح!'); e.target.reset(); });
+        document.getElementById('challenge-form').addEventListener('submit', (e) => { e.preventDefault(); saveNewProposal('فكرة تحدي ترابي', document.getElementById('chal-type').value, document.getElementById('chal-desc').value); closeModal('challenge-modal'); showToast('تم النشر بنجاح! 💡'); e.target.reset(); });
+        document.getElementById('trip-form').addEventListener('submit', (e) => { e.preventDefault(); saveNewProposal('رحلة علمية', document.getElementById('trip-title').value, document.getElementById('trip-desc').value); closeModal('trip-modal'); showToast('تم إرسال المقترح بنجاح!'); e.target.reset(); });
 
         function handleReq(id, action) {
             let proposals = JSON.parse(localStorage.getItem('sahara_proposals')) || [];
-            proposals = proposals.map(p => {
-                if (p.id === id) { p.status = action === 'approve' ? 'approved' : 'rejected'; }
-                return p;
-            });
+            proposals = proposals.map(p => { if (p.id === id) { p.status = action === 'approve' ? 'approved' : 'rejected'; } return p; });
             localStorage.setItem('sahara_proposals', JSON.stringify(proposals));
             renderDashboardData();
-            showToast(action === 'approve' ? 'تم قبول المقترح وإدراجه في المنصة بنجاح' : 'تم رفض المقترح', action === 'approve' ? 'success' : 'error');
+            showToast(action === 'approve' ? 'تم قبول المقترح' : 'تم رفض المقترح', action === 'approve' ? 'success' : 'error');
+        }
+    </script>
+
+    <!-- سكريبت تفعيل الـ Service Worker لـ PWA -->
+    <script>
+        if ('serviceWorker' in navigator) {
+            window.addEventListener('load', () => {
+                navigator.serviceWorker.register('sw.js')
+                    .then(registration => {
+                        console.log('تم تفعيل نظام PWA بنجاح:', registration.scope);
+                    })
+                    .catch(error => {
+                        console.log('فشل تفعيل PWA:', error);
+                    });
+            });
         }
     </script>
 </body>
